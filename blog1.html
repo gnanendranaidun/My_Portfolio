@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnanendra Portfolio | Blog</title>
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- =====BOX ICONS===== -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Showdown.js for Markdown to HTML conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+
+    <style>
+        /* Blog Section Styling */
+        #blog-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+        #loading {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!--===== HEADER =====-->
+    <header class="l-header">
+        <nav class="nav bd-grid">
+            <div>
+                <a href="#" class="nav__logo">Welcome</a>
+            </div>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="#work" class="nav__link">Projects</a></li>
+                    <li class="nav__item"><a href="#blog" class="nav__link">Blog</a></li>
+                    <li class="nav__item"><a href="#achievements" class="nav__link">Achievements</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="bx bx-menu"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <h1 style="text-align: center; margin-top: 40px;">My Blog</h1>
+        <div id="loading">Loading blog content...</div>
+        <div id="blog-content"></div>
+    </section>
+
+    <script>
+        async function loadMarkdown() {
+            const loadingElement = document.getElementById("loading");
+            try {
+                const response = await fetch('Final BLOG copy.md'); // Load your Markdown file
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const text = await response.text();
+
+                const converter = new showdown.Converter();
+                const html = converter.makeHtml(text);
+
+                document.getElementById("blog-content").innerHTML = html;
+            } catch (error) {
+                document.getElementById("blog-content").innerHTML = `<p style="color: red; text-align: center;">Failed to load blog content.</p>`;
+                console.error("Error loading markdown:", error);
+            } finally {
+                loadingElement.style.display = "none"; // Hide loading message
+            }
+        }
+
+        loadMarkdown();
+    </script>
+</body>
+</html>

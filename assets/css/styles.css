@@ -7,8 +7,8 @@
   /*===== Colores =====*/
   /*Purple 260 - Red 355 - Blue 224 - Pink 340*/
   /* HSL color mode */
-  --hue-color: 224;
-  --first-color: hsl(var(--hue-color), 89%, 60%);
+  --hue-color: 55;
+  --first-color: #2c49ce;
   --second-color: hsl(var(--hue-color), 56%, 12%);
   /*===== Fuente y tipografia =====*/
   --body-font: 'Poppins', sans-serif;
@@ -49,6 +49,7 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   color: var(--second-color);
+  background: linear-gradient(to right, #7993aa, #0edfea);
 }
 
 h1, h2, p {
@@ -112,7 +113,7 @@ img {
   top: 0;
   left: 0;
   z-index: var(--z-fixed);
-  background-color: #fff;
+  background-color: #d5d5d5;
   box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
 }
 
@@ -341,7 +342,23 @@ img {
 
 /* ===== WORK =====*/
 .work__container {
-  row-gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.work__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.work__title {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }
 
 .work__img {
@@ -359,24 +376,38 @@ img {
 }
 
 /* ===== CONTACT =====*/
-.contact__input {
-  width: 100%;
-  font-size: var(--normal-font-size);
-  font-weight: var(--font-semi);
-  padding: 1rem;
-  border-radius: .5rem;
-  border: 1.5px solid var(--second-color);
-  outline: none;
-  margin-bottom: var(--mb-4);
+.contact__container {
+  text-align: center;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
-.contact__button {
-  display: block;
-  border: none;
-  outline: none;
-  font-size: var(--normal-font-size);
-  cursor: pointer;
-  margin-left: auto;
+.contact-description {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.contact-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-link {
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.social-link:hover {
+  background: #ffffff;
+  color: #312d2d;
 }
 
 /* ===== FOOTER =====*/
@@ -528,3 +559,102 @@ img {
     width: 450px;
   }
 }
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Blog Section */
+.blog-container {
+  max-width: 800px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.blog-card {
+  background: #d5d5d5; /* Dark background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.3);
+}
+
+.blog-title {
+  font-size: 1.234rem;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.blog-title a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  transition: color 0.3s ease-in-out;
+}
+
+.blog-title a:hover {
+  color: #bb980b; /* Highlight color on hover */
+}
+
+.blog-description {
+  font-size: 1rem;
+  color: #000000;
+  margin-top: 8px;
+}
+
+
+.achievements-container {
+    max-width: 800px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.achievement {
+    background: #d5d5d5; /* Light background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.achievement:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.3);
+}
+
+.title {
+    font-size: 1.234rem;
+    font-weight: bold;
+    color: #000;
+    transition: color 0.3s ease-in-out;
+}
+
+.achievement:hover .title {
+    color: #bb980b; /* Highlight color on hover */
+}
+
+.description {
+    font-size: 1rem;
+    color: #000000;
+    margin-top: 8px;
+}
+
