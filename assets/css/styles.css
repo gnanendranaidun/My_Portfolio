@@ -256,6 +256,11 @@ img {
 
 /* ===== ABOUT =====*/
 .about__container {
+  max-width: 800px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   row-gap: 2rem;
   text-align: center;
 }
