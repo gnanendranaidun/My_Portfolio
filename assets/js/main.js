@@ -49,6 +49,14 @@ function openModal(title, description, link) {
 function closeModal() {
     document.getElementById('projectModal').style.display = "none";
 }
+
+// Close modal when clicking outside of the modal content
+document.getElementById('projectModal').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closeModal();
+    }
+});
+
 window.addEventListener('scroll', scrollActive)
 
 /*===== SCROLL REVEAL ANIMATION =====*/
@@ -63,6 +71,6 @@ const sr = ScrollReveal({
 sr.reveal('.home__data, .about__img, .skills__subtitle, .skills__text',{}); 
 sr.reveal('.home__img, .about__subtitle, .about__text, .skills__img',{delay: 400}); 
 sr.reveal('.home__social-icon',{ interval: 200}); 
-sr.reveal('.skills__data, .work__img, .contact__input',{interval: 200}); 
+sr.reveal('.skills__data, .work__img, .contact__input',{interval: 200});
 
 
