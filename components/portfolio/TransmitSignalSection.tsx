@@ -11,7 +11,7 @@ export function TransmitSignalSection() {
             key={link.label}
             href={link.href}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="rounded border border-white/15 bg-white/[0.02] px-4 py-3 text-sm uppercase tracking-[0.14em] text-zinc-100 transition hover:border-red-400/70 hover:bg-red-500/[0.08] hover:text-red-100"
           >
             {link.label}
