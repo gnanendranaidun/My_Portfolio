@@ -16,7 +16,7 @@ export function SystemLogsSection() {
               <a
                 href={log.link}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="mt-3 inline-block text-xs uppercase tracking-[0.14em] text-zinc-200 underline decoration-red-400/70 underline-offset-4 hover:text-red-200"
               >
                 Open source log
