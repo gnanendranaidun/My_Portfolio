@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 * {
@@ -17,7 +17,7 @@ body {
   margin: 0;
   background: radial-gradient(circle at top, rgba(160, 8, 35, 0.18), #000 40%);
   color: #e4e4e7;
-  font-family: var(--font-inter), ui-sans-serif, system-ui;
+  font-family: var(--font-sans);
 }
 
 body::before {
