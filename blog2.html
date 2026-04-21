@@ -10,61 +10,83 @@
     <!-- =====BOX ICONS===== -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
 
-    <!-- Showdown.js for Markdown to HTML conversion -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
-
     <style>
-        /* Blog Section Styling */
-        #blog-content {
-            max-width: 800px;
+        #pdf-container {
+            max-width: 900px;
             margin: 20px auto;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            font-family: Arial, sans-serif;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            background: #fff;
         }
-        #loading {
+
+        .fallback {
             text-align: center;
-            font-size: 18px;
-            color: #555;
+            padding: 40px;
+        }
+
+        .fallback a {
+            display: block;
+            margin: 10px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .pdf-actions {
+            text-align: center;
             margin-top: 20px;
+        }
+
+        .pdf-actions a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: 500;
         }
     </style>
 </head>
+
 <body>
-    
 
     <!-- Blog Section -->
     <section id="blog">
-        <h1 style="text-align: center; margin-top: 40px;">Blog of YC 18 Apr 2026</h1>
-        <div id="loading">Loading blog content...</div>
-        <div id="blog-content"></div>
+        <h1 style="text-align: center; margin-top: 40px;">
+            Blog of YC 18 Apr 2026
+        </h1>
+
+        <!-- Top Actions -->
+        <div class="pdf-actions">
+            <a href="blog2.pdf" target="_blank">📄 Open PDF</a>
+            |
+            <a href="https://www.linkedin.com/posts/gnanendranaidun_startups-ycombinator-buildinpublic-activity-7452061380561616896-J3E8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEg_wbIBgVA5wmxmco4Y7S6l6lZo5wW5xHg" target="_blank">
+                🔗 LinkedIn
+            </a>
+        </div>
+
+        <!-- PDF Viewer -->
+        <div id="pdf-container">
+            <object 
+                data="blog2.pdf" 
+                type="application/pdf" 
+                width="100%" 
+                height="800px">
+
+                <!-- Fallback -->
+                <div class="fallback">
+                    <p>Unable to load the blog here.</p>
+
+                    <a href="blog2.pdf" target="_blank">
+                        📄 Open PDF
+                    </a>
+
+                    <a href="https://www.linkedin.com/posts/gnanendranaidun_startups-ycombinator-buildinpublic-activity-7452061380561616896-J3E8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEg_wbIBgVA5wmxmco4Y7S6l6lZo5wW5xHg" target="_blank">
+                        🔗 Read on LinkedIn
+                    </a>
+                </div>
+
+            </object>
+        </div>
+
     </section>
 
-    <script>
-        async function loadMarkdown() {
-            const loadingElement = document.getElementById("loading");
-            try {
-                const response = await fetch('blog2.md'); // Load your Markdown file
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const text = await response.text();
-
-                const converter = new showdown.Converter();
-                const html = converter.makeHtml(text);
-
-                document.getElementById("blog-content").innerHTML = html;
-            } catch (error) {
-                document.getElementById("blog-content").innerHTML = `<p style="color: red; text-align: center;">Failed to load blog content.</p>`;
-                console.error("Error loading markdown:", error);
-            } finally {
-                loadingElement.style.display = "none"; // Hide loading message
-            }
-        }
-
-        loadMarkdown();
-    </script>
 </body>
 </html>
