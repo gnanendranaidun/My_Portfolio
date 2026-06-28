@@ -222,12 +222,13 @@ ul   { list-style: none; }
   margin-bottom: 1.75rem;
   opacity: 0;
   animation: fadeUp 0.9s ease 0.4s forwards;
+  text-align: right;
 }
 
-/* First name — sized conservatively: 9 chars × ~0.8em × 5rem = ~360px, safe at all viewports */
+/* First name — Syne is wide (~1.1em/char); at 4.5rem × 9 chars = ~713px, safe in any container */
 .hero__name-first {
   display: block;
-  font-size: clamp(2rem, 5.5vw, 5rem);
+  font-size: clamp(1.8rem, 4.5vw, 4.5rem);
   text-shadow: 0 0 80px rgba(0, 229, 255, 0.12);
 }
 
