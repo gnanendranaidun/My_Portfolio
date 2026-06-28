@@ -1013,6 +1013,418 @@ ul   { list-style: none; }
   /* Animations are off here, so reveal the portrait statically */
   .hero__portrait { opacity: 1; transform: none; }
 }
+
+
+/* =====================================================
+   RESUME-DERIVED SECTIONS
+   ===================================================== */
+/* ===== EXPERIENCE (from resume) ===== */
+/* =====================================================
+   EXPERIENCE — vertical cyan timeline
+   ===================================================== */
+.exp-timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+/* The thin cyan vertical line */
+.exp-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0.4rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--border-hi) 8%,
+    var(--border-hi) 92%,
+    transparent
+  );
+}
+
+.exp-entry {
+  position: relative;
+  padding-bottom: 3rem;
+}
+.exp-entry:last-child {
+  padding-bottom: 0;
+}
+
+/* Glowing node dot anchored on the line */
+.exp-entry::before {
+  content: '';
+  position: absolute;
+  left: calc(-2.5rem + 0.4rem);
+  top: 0.55rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--electric);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 16px var(--elec-glow), 0 0 28px rgba(0, 229, 255, 0.3);
+}
+
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.6rem 1.75rem;
+  transition: all var(--ease);
+}
+.exp-card:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+}
+
+.exp-card__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+  flex-wrap: wrap;
+}
+.exp-card__role {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.exp-card__company {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--electric);
+  margin-top: 0.25rem;
+  letter-spacing: 0.01em;
+}
+.exp-card__date {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.exp-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.exp-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.exp-card__bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.exp-card__bullets li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.exp-card__bullets li::before {
+  content: '//';
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  color: var(--electric);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+@media (max-width: 768px) {
+  .exp-timeline {
+    padding-left: 1.75rem;
+  }
+  .exp-entry::before {
+    left: calc(-1.75rem + 0.4rem);
+  }
+  .exp-card__top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .exp-card__date {
+    order: -1;
+  }
+}
+
+/* ===== EDUCATION (from resume) ===== */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.edu-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  transition: all var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.edu-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--electric);
+  box-shadow: 0 0 20px var(--elec-glow);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--ease);
+}
+.edu-card:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,229,255,0.08);
+}
+.edu-card:hover::after { transform: scaleY(1); }
+
+.edu-card__metric {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--electric);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(0,229,255,0.3);
+}
+.edu-card__metric-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.edu-card__inst {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--white);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.edu-card__meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.9rem;
+}
+.edu-card__degree {
+  font-size: 0.85rem;
+  color: var(--off);
+  line-height: 1.6;
+}
+.edu-card__extra {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .edu-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== SKILLS (from resume) ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.skills-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem 1.5rem 1.65rem;
+  transition: all var(--ease);
+}
+.skills-group:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+}
+.skills-group__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--electric);
+  margin-bottom: 1.1rem;
+  display: block;
+}
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.skills-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all var(--ease);
+  cursor: default;
+}
+.skills-tag:hover {
+  border-color: var(--border-hi);
+  color: var(--off);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.06);
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+}
+
+/* ===== EXTRACURRICULAR (from resume) ===== */
+.extra-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.extra-card {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.4rem 1.5rem;
+  transition: all var(--ease);
+}
+.extra-card:hover {
+  border-color: var(--border-hi);
+  transform: translateX(4px);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+}
+.extra-card__icon {
+  flex: 0 0 auto;
+  width: 2.9rem;
+  height: 2.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--elec-dim);
+  color: var(--electric);
+  font-size: 1.4rem;
+  transition: all var(--ease);
+}
+.extra-card:hover .extra-card__icon {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.18);
+}
+.extra-card__body {
+  min-width: 0;
+}
+.extra-card__org {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+.extra-card__role {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.extra-card__date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0.3rem;
+}
+@media (max-width: 768px) {
+  .extra-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== PROJECTS (from resume) ===== */
+.project-card__img--ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.08), transparent 65%),
+    linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+}
+
+.project-card__img--ph i {
+  color: var(--electric);
+  opacity: 0.5;
+  font-size: 2.4rem;
+}
+
+/* ===== ACHIEVEMENTS (from resume) ===== */
+.ach-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  transition: color var(--ease);
+}
+.achievement-card:hover .ach-hint { color: var(--electric); }
+.ach-hint i { font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+  .ach-hint { font-size: 0.6rem; }
+}
 </style>
 </head>
 <body>
@@ -1024,9 +1436,11 @@ ul   { list-style: none; }
     <div class="nav__menu" id="nav-menu">
       <ul class="nav__list">
         <li><a href="#home"         class="nav__link">Home</a></li>
-        <li><a href="#work"         class="nav__link">Projects</a></li>
-        <li><a href="#achievements" class="nav__link">Achievements</a></li>
         <li><a href="#about"        class="nav__link">About</a></li>
+        <li><a href="#experience"   class="nav__link">Experience</a></li>
+        <li><a href="#work"         class="nav__link">Projects</a></li>
+        <li><a href="#skills"       class="nav__link">Skills</a></li>
+        <li><a href="#achievements" class="nav__link">Awards</a></li>
         <li><a href="#blog"         class="nav__link">Blog</a></li>
         <li><a href="#contact"      class="nav__link nav__link--cta">Contact</a></li>
       </ul>
@@ -1093,15 +1507,15 @@ ul   { list-style: none; }
 <div class="stats-bar" id="stats">
   <div class="stats-bar__inner">
     <div>
-      <span class="stat__num" data-target="5">0</span>
-      <span class="stat__label">Projects built</span>
+      <span class="stat__num" data-target="9">0</span>
+      <span class="stat__label">Projects shipped</span>
     </div>
     <div>
-      <span class="stat__num" data-target="240">0</span>
-      <span class="stat__label">LeetCode problems solved</span>
+      <span class="stat__num" data-target="500" data-suffix="+">0</span>
+      <span class="stat__label">DSA problems solved</span>
     </div>
     <div>
-      <span class="stat__num" data-target="1460">0</span>
+      <span class="stat__num" data-target="1460" data-suffix="+">0</span>
       <span class="stat__label">LeetCode max rating</span>
     </div>
   </div>
@@ -1109,147 +1523,34 @@ ul   { list-style: none; }
 
 <div class="section-divider"></div>
 
-<!-- ===== PROJECTS ===== -->
-<section class="section" id="work">
-  <div class="section__inner">
-    <div class="section__header reveal">
-      <span class="section__eyebrow">// Selected work</span>
-      <h2 class="section__title">Projects</h2>
-    </div>
-    <div class="projects__grid">
-
-      <article class="project-card tilt reveal"
-               data-href="https://github.com/gnanendranaidun/Crescere_test.git">
-        <div class="project-card__img">
-          <img src="../assets/img/Screenshot 2025-02-12 at 22.14.09.png" alt="Crescere">
-        </div>
-        <div class="project-card__body">
-          <span class="project-card__tag">Deep Learning &middot; Health</span>
-          <h3 class="project-card__title">Crescere</h3>
-          <p class="project-card__desc">Child health monitoring ecosystem built in collaboration with Skids.health.</p>
-        </div>
-      </article>
-
-      <article class="project-card tilt reveal reveal--delay-1"
-               data-href="https://github.com/gnanendranaidun/qubit_rotational_explorer">
-        <div class="project-card__img">
-          <img src="../assets/img/Qubit project.jpeg" alt="Qubit Rotational Explorer">
-        </div>
-        <div class="project-card__body">
-          <span class="project-card__tag">Quantum Computing &middot; Viz</span>
-          <h3 class="project-card__title">Qubit Rotational Explorer</h3>
-          <p class="project-card__desc">Interactive visualization of qubit state rotations on the Bloch sphere.</p>
-        </div>
-      </article>
-
-      <article class="project-card tilt reveal reveal--delay-2"
-               data-href="https://github.com/AnjKal/Pothole_DTL">
-        <div class="project-card__img">
-          <img src="../assets/img/logo copy.png" alt="Civic Issue Reporting Portal">
-        </div>
-        <div class="project-card__body">
-          <span class="project-card__tag">Design Thinking &middot; Web</span>
-          <h3 class="project-card__title">Civic Issue Reporting Portal</h3>
-          <p class="project-card__desc">Pothole and civic issue reporting system from a design thinking course.</p>
-        </div>
-      </article>
-
-      <article class="project-card tilt reveal reveal--delay-1"
-               data-href="https://github.com/gnanendranaidun/Visible-Spectrophotometer">
-        <div class="project-card__img">
-          <img src="../assets/img/Screenshot 2025-02-12 at 22.22.52.png" alt="Visible Spectrophotometer">
-        </div>
-        <div class="project-card__body">
-          <span class="project-card__tag">Hardware &middot; Optics &middot; Python</span>
-          <h3 class="project-card__title">Visible Spectrophotometer</h3>
-          <p class="project-card__desc">Prototype using visible light absorption to identify solutions &mdash; built from hardware up.</p>
-        </div>
-      </article>
-
-      <article class="project-card tilt reveal reveal--delay-2"
-               data-href="https://github.com/gnanendranaidun/Dynamic-object-recognition">
-        <div class="project-card__img">
-          <img src="../assets/img/object detection.jpeg" alt="Dynamic Object Recognition">
-        </div>
-        <div class="project-card__body">
-          <span class="project-card__tag">Computer Vision &middot; CNN</span>
-          <h3 class="project-card__title">Dynamic Object Recognition</h3>
-          <p class="project-card__desc">Real-time object detection and classification with automated command output.</p>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ===== ACHIEVEMENTS ===== -->
-<section class="section section--alt" id="achievements">
-  <div class="section__inner">
-    <div class="section__header reveal">
-      <span class="section__eyebrow">// Wins</span>
-      <h2 class="section__title">Achievements</h2>
-    </div>
-    <div class="achievements__grid">
-
-      <a href="https://www.linkedin.com/posts/gnanendranaidun_minedhackathon2025-hackathon-ai-activity-7292015024905035777-UTIb"
-         target="_blank" class="achievement-card reveal">
-        <span class="achievement-card__stat">3rd</span>
-        <h3 class="achievement-card__title">National Hackathon</h3>
-        <p class="achievement-card__desc">Mined Hackathon 2025 &mdash; national-level AI competition.</p>
-      </a>
-
-      <a href="#achievements" class="achievement-card reveal reveal--delay-1">
-        <span class="achievement-card__stat">3rd</span>
-        <h3 class="achievement-card__title">DataVerse, BMSCE</h3>
-        <p class="achievement-card__desc">24-hour Kaggle ML competition &mdash; Energy Audit Estimation &amp; Analysis.</p>
-      </a>
-
-      <a href="https://github.com/gnanendranaidun/Crescere_test.git" target="_blank"
-         class="achievement-card reveal reveal--delay-2">
-        <span class="achievement-card__stat">&#8599;</span>
-        <h3 class="achievement-card__title">Crescere &times; Skids.health</h3>
-        <p class="achievement-card__desc">Built a full child health monitoring ecosystem with an industry partner.</p>
-      </a>
-
-      <a href="https://leetcode.com/u/gnanuqubit" target="_blank"
-         class="achievement-card reveal reveal--delay-3">
-        <span class="achievement-card__stat">1460+</span>
-        <h3 class="achievement-card__title">LeetCode Rating</h3>
-        <p class="achievement-card__desc">240+ problems solved. Top 38% globally.</p>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ===== ABOUT ===== -->
 <section class="section" id="about">
   <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Who I am</span>
+      <h2 class="section__title">About</h2>
+    </div>
     <div class="about__layout">
       <div class="about__left reveal">
         <div class="about__photo-wrap">
           <img src="../assets/img/perfil.png" alt="Gnanendra Naidu" class="about__photo">
         </div>
         <div class="about__chips">
-          <span class="chip">RVCE, Bengaluru</span>
-          <span class="chip">B.E. AI &amp; ML</span>
+          <span class="chip">RVCE &middot; AI &amp; ML</span>
+          <span class="chip">CGPA 8.96</span>
+          <span class="chip">App Store dev</span>
           <span class="chip">Quantum ML</span>
           <span class="chip">Learning German</span>
         </div>
       </div>
       <div class="about__right reveal reveal--delay-1">
         <h3 class="about__heading">I'm Gnanendra</h3>
-        <p>An AI &amp; ML enthusiast from India with a passion for pushing the boundaries of deep learning, large language models, and quantum computing. Currently pursuing a B.E. in Artificial Intelligence &amp; Machine Learning at RV College of Engineering, Bengaluru.</p>
-        <p>I'm drawn to problems that sit at the edge of what's understood &mdash; whether that's pose estimation, quantum cryptography, or human height estimation from multimodal input.</p>
+        <p>An AI &amp; ML engineer from Bengaluru, currently pursuing a B.E. in Artificial Intelligence &amp; Machine Learning at RV College of Engineering (CGPA 8.96). I build across the stack &mdash; from deep-learning and computer-vision pipelines to full iOS apps and cloud backends.</p>
+        <p>Right now I'm an Apprentice Associate III at Allstate India, building AWS data pipelines for RAG systems. Before that I shipped a published iOS app at Einsteini.ai (USA) and a child-health platform with Skids.Health. I'm drawn to problems at the edge of what's understood &mdash; quantum machine learning, multimodal estimation, and real-time vision.</p>
         <ul class="about__list">
-          <li>Skilled in deep learning, pose estimation, and CNN-based models</li>
+          <li>Deep learning, pose estimation and CNN-based vision models</li>
           <li>Fascinated by Quantum ML and Quantum Cryptography</li>
-          <li>Currently working on human height estimation using multimodal input</li>
-          <li>Solved <a href="https://leetcode.com/u/gnanuqubit" target="_blank">240+ challenges on LeetCode</a> &mdash; Global Rank 438,265</li>
+          <li>Shipped a LinkedIn-companion iOS app to the Apple App Store</li>
+          <li>Solved <a href="https://leetcode.com/u/gnanuqubit" target="_blank">500+ DSA problems</a> &mdash; LeetCode rating 1460+ (top 38%)</li>
           <li>Learning German in my free time</li>
         </ul>
       </div>
@@ -1259,8 +1560,361 @@ ul   { list-style: none; }
 
 <div class="section-divider"></div>
 
-<!-- ===== BLOG ===== -->
-<section class="section section--alt" id="blog">
+<section class="section section--alt" id="experience">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Where I've worked</span>
+      <h2 class="section__title">Experience</h2>
+    </div>
+
+    <div class="exp-timeline">
+
+      <div class="exp-entry reveal">
+        <div class="exp-card">
+          <div class="exp-card__top">
+            <div>
+              <span class="exp-card__role">Apprentice Associate III</span>
+              <span class="exp-card__company">Allstate India Private Ltd</span>
+            </div>
+            <span class="exp-card__date">Dec 2025 &mdash; Present</span>
+          </div>
+          <div class="exp-card__tags">
+            <span class="exp-card__tag">AWS</span>
+            <span class="exp-card__tag">RAG</span>
+            <span class="exp-card__tag">Data Pipeline</span>
+          </div>
+          <ul class="exp-card__bullets">
+            <li>Built a streaming data pipeline that transforms trip telemetry into standardized natural-language descriptions using local inference models and rule-based processing.</li>
+            <li>Deployed the data production workflow on AWS and prepared the structured corpus for Retrieval-Augmented Generation (RAG) systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-entry reveal reveal--delay-1">
+        <div class="exp-card">
+          <div class="exp-card__top">
+            <div>
+              <span class="exp-card__role">Product Developer Intern</span>
+              <span class="exp-card__company">Einsteini.ai (Remote, USA)</span>
+            </div>
+            <span class="exp-card__date">Apr 2025 &mdash; Nov 2025</span>
+          </div>
+          <div class="exp-card__tags">
+            <span class="exp-card__tag">Swift</span>
+            <span class="exp-card__tag">AWS</span>
+            <span class="exp-card__tag">MongoDB</span>
+            <span class="exp-card__tag">iOS</span>
+          </div>
+          <ul class="exp-card__bullets">
+            <li>Integrated AI capabilities to augment networking workflows and user productivity.</li>
+            <li>Built a LinkedIn Companion iOS app &amp; Chrome extension using Swift, OAuth, AWS and MongoDB &mdash; the iOS app is published on the Apple App Store.</li>
+            <li>Developed and maintained the full AWS backend and MongoDB infrastructure, and implemented payments via Stripe checkout and Apple in-app purchases.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-entry reveal reveal--delay-2">
+        <div class="exp-card">
+          <div class="exp-card__top">
+            <div>
+              <span class="exp-card__role">Software Developer</span>
+              <span class="exp-card__company">Skids.Health (Startup, Bangalore)</span>
+            </div>
+            <span class="exp-card__date">Oct 2024 &mdash; Jan 2025</span>
+          </div>
+          <div class="exp-card__tags">
+            <span class="exp-card__tag">Computer Vision</span>
+            <span class="exp-card__tag">IoT</span>
+          </div>
+          <ul class="exp-card__bullets">
+            <li>Developed Crescere, an ecosystem of mobile and web apps with a database for child health monitoring &mdash; leveraging computer vision and IoT to perform anthropometric measurements and analyze health conditions.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="work">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Selected work</span>
+      <h2 class="section__title">Projects</h2>
+    </div>
+    <div class="projects__grid">
+      <article class="project-card tilt reveal" data-href="https://github.com/gnanendranaidun/Crescere_test.git">
+        <div class="project-card__img"><img src="../assets/img/Screenshot 2025-02-12 at 22.14.09.png" alt="Crescere"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Deep Learning · Health</span>
+          <h3 class="project-card__title">Crescere</h3>
+          <p class="project-card__desc">Mobile + web ecosystem for child health monitoring. YOLO + MediaPipe pose estimation and PyTorch/Transformers modeling for anthropometric, WHO-based analysis — 96.9% accuracy. Deployed with skids.health.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-1" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-train'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">CNN · Depth-Anything</span>
+          <h3 class="project-card__title">Wagon Analysis &amp; Damage Detection</h3>
+          <p class="project-card__desc">Processes rail-wagon video to classify loaded/unloaded status, compute material volume, and detect damage — auto-generating image reports. Deployed at JK Lakshmi Cement. Grand Prize, MINeD 2025.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-2" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-cctv'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">OpenCV · Flask · ML</span>
+          <h3 class="project-card__title">Camera-Only Surveillance System</h3>
+          <p class="project-card__desc">Modular multi-camera security system with anomaly detection — loitering, crowd &amp; motion alerts via SVM, KNN, blob detection and Kalman filtering. Live dashboards + email/SMS triggers.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-3" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-chat'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">RAG · LangChain</span>
+          <h3 class="project-card__title">Multilingual Loan Advisor</h3>
+          <p class="project-card__desc">Voice chatbot for 9+ Indian languages (Sarvam AI STT/TTS/translation) with LangChain + GPT for contextual loan advice. Top 50 — Great Bengaluru Hackathon.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-4" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-car'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Research · CNN · Optical Flow</span>
+          <h3 class="project-card__title">Real-Time Steering Angle Prediction</h3>
+          <p class="project-card__desc">Monocular-camera system using CNN + optical flow for steering-angle prediction, with depth estimation and discrete-math models replacing LiDAR. Research paper in progress.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal" data-href="https://github.com/gnanendranaidun/qubit_rotational_explorer">
+        <div class="project-card__img"><img src="../assets/img/Qubit project.jpeg" alt="Qubit Rotational Explorer"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Quantum Computing · Viz</span>
+          <h3 class="project-card__title">Qubit Rotational Explorer</h3>
+          <p class="project-card__desc">Interactive visualization of qubit state rotations on the Bloch sphere.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-1" data-href="https://github.com/gnanendranaidun/Visible-Spectrophotometer">
+        <div class="project-card__img"><img src="../assets/img/Screenshot 2025-02-12 at 22.22.52.png" alt="Visible Spectrophotometer"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Hardware · Optics · Python</span>
+          <h3 class="project-card__title">Visible Spectrophotometer</h3>
+          <p class="project-card__desc">Prototype using visible-light absorption to identify solutions — built from the hardware up.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-2" data-href="https://github.com/gnanendranaidun/Dynamic-object-recognition">
+        <div class="project-card__img"><img src="../assets/img/object detection.jpeg" alt="Dynamic Object Recognition"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Computer Vision · CNN</span>
+          <h3 class="project-card__title">Dynamic Object Recognition</h3>
+          <p class="project-card__desc">Real-time object detection and classification with automated command output.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-3" data-href="https://github.com/AnjKal/Pothole_DTL">
+        <div class="project-card__img"><img src="../assets/img/logo copy.png" alt="Civic Issue Reporting Portal"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Design Thinking · Web</span>
+          <h3 class="project-card__title">Civic Issue Reporting Portal</h3>
+          <p class="project-card__desc">Pothole and civic-issue reporting system from a design-thinking course.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section section--alt" id="skills">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Toolkit</span>
+      <h2 class="section__title">Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skills-group reveal">
+        <span class="skills-group__label">Languages</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Python</span>
+          <span class="skills-tag">C</span>
+          <span class="skills-tag">C++</span>
+          <span class="skills-tag">Java</span>
+          <span class="skills-tag">JavaScript</span>
+          <span class="skills-tag">Swift</span>
+          <span class="skills-tag">Kotlin</span>
+          <span class="skills-tag">HTML</span>
+          <span class="skills-tag">CSS</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-1">
+        <span class="skills-group__label">ML / AI</span>
+        <div class="skills-tags">
+          <span class="skills-tag">PyTorch</span>
+          <span class="skills-tag">TensorFlow</span>
+          <span class="skills-tag">OpenCV</span>
+          <span class="skills-tag">YOLOv5</span>
+          <span class="skills-tag">MediaPipe</span>
+          <span class="skills-tag">Transformers</span>
+          <span class="skills-tag">CNN</span>
+          <span class="skills-tag">RAG</span>
+          <span class="skills-tag">LangChain</span>
+          <span class="skills-tag">GPT</span>
+          <span class="skills-tag">Depth-Anything</span>
+          <span class="skills-tag">scikit-learn</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-2">
+        <span class="skills-group__label">Web</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Flask</span>
+          <span class="skills-tag">Streamlit</span>
+          <span class="skills-tag">FastAPI</span>
+          <span class="skills-tag">Socket.IO</span>
+          <span class="skills-tag">Chart.js</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-3">
+        <span class="skills-group__label">Mobile</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Android Studio</span>
+          <span class="skills-tag">Xcode</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-1">
+        <span class="skills-group__label">Cloud &amp; Data</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Firebase</span>
+          <span class="skills-tag">AWS</span>
+          <span class="skills-tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-2">
+        <span class="skills-group__label">Dev Tools</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Git</span>
+          <span class="skills-tag">GitHub</span>
+          <span class="skills-tag">VS Code</span>
+          <span class="skills-tag">ngrok</span>
+          <span class="skills-tag">Jupyter</span>
+          <span class="skills-tag">Google Colab</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-3">
+        <span class="skills-group__label">Foundations</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Data Structures</span>
+          <span class="skills-tag">Algorithms</span>
+          <span class="skills-tag">Problem Solving</span>
+          <span class="skills-tag">Agile Development</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-4">
+        <span class="skills-group__label">Soft Skills</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Teamwork</span>
+          <span class="skills-tag">Leadership</span>
+          <span class="skills-tag">Time Management</span>
+          <span class="skills-tag">Communication</span>
+          <span class="skills-tag">Collaboration</span>
+          <span class="skills-tag">Design Thinking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="achievements">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Wins</span>
+      <h2 class="section__title">Achievements</h2>
+    </div>
+
+    <div class="achievements__grid">
+      <a href="https://www.linkedin.com/in/gnanendranaidun" target="_blank"
+         class="achievement-card reveal">
+        <span class="achievement-card__stat">1st</span>
+        <h3 class="achievement-card__title">MINeD 2025 &mdash; Grand Prize</h3>
+        <p class="achievement-card__desc">Led the team to the 48-hr Grand Prize ($300 + &#8377;10,000) at MINeD 2025 (Binghamton University, NY &amp; Nirma University). Built the Deep-Learning/CNN models for damage detection &amp; volume estimation.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/gnanendranaidun" target="_blank"
+         class="achievement-card reveal reveal--delay-1">
+        <span class="achievement-card__stat">Top 5%</span>
+        <h3 class="achievement-card__title">Data Science for Engineers &mdash; NPTEL</h3>
+        <p class="achievement-card__desc">Finished in the top 5% of the NPTEL course. Also completed AI for Economics (NPTEL).</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+
+      <a href="https://github.com/gnanendranaidun" target="_blank"
+         class="achievement-card reveal reveal--delay-2">
+        <span class="achievement-card__stat">Top 6</span>
+        <h3 class="achievement-card__title">AI-Verse, BMSCE</h3>
+        <p class="achievement-card__desc">Top 6 &mdash; built an emotional multilingual chatbot using NLP and TTS/ASR for real-time, sentiment-aware responses.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+
+      <a href="https://github.com/gnanendranaidun" target="_blank"
+         class="achievement-card reveal reveal--delay-3">
+        <span class="achievement-card__stat">3rd</span>
+        <h3 class="achievement-card__title">DataVerse, BMSCE</h3>
+        <p class="achievement-card__desc">Third place in a 24-hour Kaggle ML competition for Energy Audit Estimation &amp; Analysis.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+
+      <a href="https://leetcode.com/u/gnanuqubit" target="_blank"
+         class="achievement-card reveal reveal--delay-4">
+        <span class="achievement-card__stat">500+</span>
+        <h3 class="achievement-card__title">Competitive Programming</h3>
+        <p class="achievement-card__desc">Solved 500+ problems across LeetCode, GeeksforGeeks, Codeforces and HackerRank.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+
+      <a href="https://leetcode.com/u/gnanuqubit" target="_blank"
+         class="achievement-card reveal reveal--delay-4">
+        <span class="achievement-card__stat">1460+</span>
+        <h3 class="achievement-card__title">LeetCode Rating</h3>
+        <p class="achievement-card__desc">Maximum contest rating of 1460+ &mdash; top 38% globally.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section section--alt" id="education">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Academics</span>
+      <h2 class="section__title">Education</h2>
+    </div>
+
+    <div class="edu-grid">
+      <article class="edu-card reveal reveal--delay-1">
+        <span class="edu-card__metric">8.96</span>
+        <span class="edu-card__metric-label">CGPA</span>
+        <h3 class="edu-card__inst">R V College of Engineering</h3>
+        <span class="edu-card__meta">Bangalore, India &middot; Sep 2023 &mdash; Sep 2027</span>
+        <p class="edu-card__degree">B.E. in Artificial Intelligence &amp; Machine Learning Engineering</p>
+      </article>
+
+      <article class="edu-card reveal reveal--delay-2">
+        <span class="edu-card__metric">90.1%</span>
+        <span class="edu-card__metric-label">2nd PUC</span>
+        <h3 class="edu-card__inst">Vision PU College</h3>
+        <span class="edu-card__meta">Bangalore, India &middot; Aug 2021 &mdash; Mar 2023</span>
+        <p class="edu-card__degree">Pre-University (PCM)</p>
+        <p class="edu-card__extra">KCET &mdash; 1424 State Rank &nbsp;&middot;&nbsp; JEE Mains &mdash; 96.1 percentile</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="blog">
   <div class="section__inner">
     <div class="section__header reveal">
       <span class="section__eyebrow">// Writing</span>
@@ -1297,7 +1951,56 @@ ul   { list-style: none; }
 
 <div class="section-divider"></div>
 
-<!-- ===== CONTACT ===== -->
+<section class="section section--alt" id="extracurricular">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Beyond code</span>
+      <h2 class="section__title">Community</h2>
+    </div>
+    <div class="extra-grid">
+
+      <div class="extra-card reveal">
+        <div class="extra-card__icon"><i class='bx bxl-google'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Google Developer Groups, RVCE</h3>
+          <span class="extra-card__role">Member &amp; Active Collaborator</span>
+          <span class="extra-card__date">Jan 2023 &mdash; Present</span>
+        </div>
+      </div>
+
+      <div class="extra-card reveal reveal--delay-1">
+        <div class="extra-card__icon"><i class='bx bx-code-alt'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Coding Club, RVCE</h3>
+          <span class="extra-card__role">Member</span>
+          <span class="extra-card__date">Feb 2023 &mdash; Present</span>
+        </div>
+      </div>
+
+      <div class="extra-card reveal reveal--delay-2">
+        <div class="extra-card__icon"><i class='bx bx-calendar-event'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Mimamsa 2025</h3>
+          <span class="extra-card__role">Campus Coordinator</span>
+          <span class="extra-card__date">2025</span>
+        </div>
+      </div>
+
+      <div class="extra-card reveal reveal--delay-3">
+        <div class="extra-card__icon"><i class='bx bx-group'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Rotaract Club, RVCE</h3>
+          <span class="extra-card__role">Member</span>
+          <span class="extra-card__date">Jan 2023 &mdash; Present</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
 <section class="section" id="contact">
   <div class="section__inner contact__inner">
     <h2 class="contact__heading reveal">
@@ -1305,12 +2008,14 @@ ul   { list-style: none; }
       <span>something.</span>
     </h2>
     <p class="contact__desc reveal reveal--delay-1">
-      Open to collaborations, internships, research conversations, and interesting problems.
+      Open to collaborations, internships, research conversations, and interesting problems. Based in Bengaluru &mdash; reachable worldwide.
     </p>
     <div class="contact__links reveal reveal--delay-2">
-      <a href="https://github.com/gnanendranaidun"      target="_blank" class="contact__link"><i class='bx bxl-github'></i>   GitHub</a>
+      <a href="mailto:gnanendranaidun101@gmail.com" class="contact__link"><i class='bx bx-envelope'></i> Email</a>
+      <a href="tel:+918050268630" class="contact__link"><i class='bx bx-phone'></i> +91 80502 68630</a>
+      <a href="https://github.com/gnanendranaidun"      target="_blank" class="contact__link"><i class='bx bxl-github'></i> GitHub</a>
       <a href="https://linkedin.com/in/gnanendranaidun" target="_blank" class="contact__link"><i class='bx bxl-linkedin'></i> LinkedIn</a>
-      <a href="https://discord.gg/h7TzC7bc"             target="_blank" class="contact__link"><i class='bx bxl-discord'></i>  Discord</a>
+      <a href="https://discord.gg/h7TzC7bc"             target="_blank" class="contact__link"><i class='bx bxl-discord'></i> Discord</a>
       <a href="https://drive.google.com/file/d/1D-Nm0PQ1lzSSceQvWJZe3O2MnPDVxQrO/view?usp=sharing"
          target="_blank" class="contact__link"><i class='bx bx-file'></i> Resume</a>
     </div>
@@ -1379,9 +2084,10 @@ function animateCount(el, target, duration = 1800) {
   const start = performance.now();
   const tick  = now => {
     const t = Math.min((now - start) / duration, 1);
-    el.textContent = Math.floor(easeOutCubic(t) * target);
+    const suffix = el.dataset.suffix || '';
+    el.textContent = Math.floor(easeOutCubic(t) * target) + suffix;
     if (t < 1) requestAnimationFrame(tick);
-    else el.textContent = target;
+    else el.textContent = target + suffix;
   };
   requestAnimationFrame(tick);
 }
