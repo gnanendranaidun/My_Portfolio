@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
 
 <style>
@@ -30,9 +30,9 @@
   --border:    rgba(0, 229, 255, 0.10);
   --border-hi: rgba(0, 229, 255, 0.40);
 
-  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
-  --font-body:    'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono:    'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'Fira Code', monospace;
 
   --nav-h:  4.5rem;
   --max-w:  1120px;
@@ -86,7 +86,7 @@ ul   { list-style: none; }
 .nav__logo {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--white);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -219,7 +219,7 @@ ul   { list-style: none; }
 
 .hero__name {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 0.92;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -279,32 +279,28 @@ ul   { list-style: none; }
 }
 .hero__namerow .hero__name { margin-bottom: 0; }
 
-/* Outer box: ENTRANCE (opacity + slide-in) + anchor for the orbital.
-   The float lives on .hero__portrait-inner so the two transforms
-   never fight; the orbital is a separate layer that stays put. */
+/* Outer box: handles ENTRANCE (opacity + slide-in from left).
+   Inner handles the idle float — split so the two transforms
+   never fight over the same property. */
 .hero__portrait {
   position: relative;
   flex: 0 0 auto;
-  width: clamp(116px, 16vw, 200px);
-  aspect-ratio: 4 / 5;
+  width: clamp(150px, 18vw, 230px);
+  aspect-ratio: 1 / 1;
   opacity: 0;
   transform: translateX(-32px) scale(0.92);
   animation: portraitIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards;
 }
-/* Framed photo — sits ABOVE the orbital so the electron is
-   occluded as it passes behind on the far side (real depth). */
+/* Circular photo — no rectangular frame; the orbital is the line around it */
 .hero__portrait-inner {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
-  border-radius: var(--r);
+  border-radius: 50%;
   overflow: hidden;
-  background:
-    radial-gradient(120% 80% at 50% 0%, rgba(0,229,255,0.10), transparent 60%),
-    linear-gradient(160deg, var(--surface2), var(--surface));
-  border: 1px solid var(--border-hi);
-  box-shadow: 0 0 0 1px var(--border), 0 20px 50px rgba(0,0,0,0.45), 0 0 34px rgba(0,229,255,0.12);
+  background: linear-gradient(160deg, var(--surface2), var(--surface));
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 34px rgba(0, 229, 255, 0.12);
   animation: portraitFloat 6s ease-in-out 1.25s infinite;
 }
 .hero__portrait-img {
@@ -313,47 +309,27 @@ ul   { list-style: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-/* Corner brackets */
-.hero__portrait-inner::before,
-.hero__portrait-inner::after {
-  content: '';
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border: 2px solid var(--electric);
-  z-index: 2;
-  pointer-events: none;
-}
-.hero__portrait-inner::before {
-  top: 8px; left: 8px;
-  border-right: none; border-bottom: none;
-  border-radius: 4px 0 0 0;
-}
-.hero__portrait-inner::after {
-  bottom: 8px; right: 8px;
-  border-left: none; border-top: none;
-  border-radius: 0 0 4px 0;
+  object-position: top center;
 }
 
-/* ===== ELECTRON ORBITAL — the quantum signature =====
-   A tilted ring (the orbital path) with a glowing electron
-   gliding along it, occluded behind the photo on the far arc. */
+/* ===== ELECTRON ORBITAL — the line around the photos =====
+   A tilted ring (the orbital path) with a glowing electron gliding
+   along it, occluded behind the photo on the far arc for real depth. */
 .orbit {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 176%;
-  height: 184%;
-  transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-11deg);
+  width: 168%;
+  height: 168%;
+  transform: translate(-50%, -50%) rotateX(62deg) rotateZ(-12deg);
   transform-style: preserve-3d;
   pointer-events: none;
-  z-index: 0;            /* behind the framed photo */
+  z-index: 0;            /* behind the photo */
 }
 .orbit__ring {
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(0, 229, 255, 0.34);
+  border: 1px solid rgba(0, 229, 255, 0.38);
   border-radius: 50%;
   box-shadow: 0 0 16px rgba(0, 229, 255, 0.12),
               inset 0 0 18px rgba(0, 229, 255, 0.05);
@@ -375,6 +351,14 @@ ul   { list-style: none; }
   box-shadow: 0 0 8px 2px var(--electric),
               0 0 22px 5px rgba(0, 229, 255, 0.55);
 }
+/* Quieter, reversed echo around the About photo */
+.orbit--about {
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%) rotateX(64deg) rotateZ(12deg);
+}
+.orbit--about .orbit__ring { border-color: rgba(0, 229, 255, 0.26); }
+.orbit--about .orbit__spin { animation-duration: 14s; animation-direction: reverse; }
 
 @keyframes portraitIn {
   to { opacity: 1; transform: translateX(0) scale(1); }
@@ -386,16 +370,6 @@ ul   { list-style: none; }
 @keyframes orbit-spin {
   to { transform: rotate(360deg); }
 }
-
-/* Quieter echo of the orbital around the About photo */
-.orbit--about {
-  width: 150%;
-  height: 144%;
-  transform: translate(-50%, -50%) rotateX(62deg) rotateZ(12deg);
-}
-.orbit--about .orbit__ring { border-color: rgba(0, 229, 255, 0.20); }
-.orbit--about .orbit__spin { animation-duration: 14s; animation-direction: reverse; }
-.orbit--about .orbit__electron { width: 8px; height: 8px; margin-left: -4px; }
 
 .hero__tagline {
   font-size: 1.1rem;
@@ -535,7 +509,7 @@ ul   { list-style: none; }
   display: block;
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--electric);
   line-height: 1;
@@ -571,7 +545,7 @@ ul   { list-style: none; }
 .section__title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--white);
   text-transform: uppercase;
@@ -716,7 +690,7 @@ ul   { list-style: none; }
   display: block;
   font-family: var(--font-display);
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--electric);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -749,38 +723,20 @@ ul   { list-style: none; }
 .about__photo-wrap {
   position: relative;
 }
+/* Circular photo — no rectangular frame; the orbital is the line around it */
 .about__photo {
   position: relative;
-  z-index: 1;            /* above the orbital so the electron passes behind */
+  z-index: 1;
   width: 100%;
-  border-radius: var(--r);
-  border: 1px solid var(--border);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 50%;
   filter: grayscale(20%) brightness(0.9);
   transition: filter var(--ease);
 }
 .about__photo-wrap:hover .about__photo {
   filter: grayscale(0%) brightness(1);
-}
-/* Cyan corner accent */
-.about__photo-wrap::before {
-  content: '';
-  position: absolute;
-  top: -6px; left: -6px;
-  width: 50px; height: 50px;
-  border-top: 2px solid var(--electric);
-  border-left: 2px solid var(--electric);
-  border-radius: 4px 0 0 0;
-  box-shadow: -4px -4px 20px var(--elec-glow);
-}
-.about__photo-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: -6px; right: -6px;
-  width: 50px; height: 50px;
-  border-bottom: 2px solid var(--electric);
-  border-right: 2px solid var(--electric);
-  border-radius: 0 0 4px 0;
-  box-shadow: 4px 4px 20px var(--elec-glow);
 }
 .about__chips {
   display: flex; flex-wrap: wrap;
@@ -799,7 +755,7 @@ ul   { list-style: none; }
 .about__heading {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--white);
   margin-bottom: 1rem;
@@ -882,7 +838,7 @@ ul   { list-style: none; }
 .blog-card__img--placeholder span {
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--electric);
   opacity: 0.4;
   letter-spacing: 0.1em;
@@ -923,7 +879,7 @@ ul   { list-style: none; }
 .contact__heading {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--white);
   text-transform: uppercase;
@@ -1101,7 +1057,7 @@ ul   { list-style: none; }
 .exp-card__role {
   font-family: var(--font-display);
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--white);
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -1217,7 +1173,7 @@ ul   { list-style: none; }
   display: block;
   font-family: var(--font-display);
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--electric);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -1235,7 +1191,7 @@ ul   { list-style: none; }
 }
 .edu-card__inst {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.15rem;
   color: var(--white);
   letter-spacing: 0.01em;
@@ -1402,22 +1358,6 @@ ul   { list-style: none; }
 }
 
 /* ===== PROJECTS (from resume) ===== */
-.project-card__img--ph {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.08), transparent 65%),
-    linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-}
-
-.project-card__img--ph i {
-  color: var(--electric);
-  opacity: 0.5;
-  font-size: 2.4rem;
-}
 
 /* ===== ACHIEVEMENTS (from resume) ===== */
 .ach-hint {
@@ -1669,7 +1609,7 @@ ul   { list-style: none; }
         </div>
       </article>
       <article class="project-card tilt reveal reveal--delay-1" data-href="https://github.com/gnanendranaidun">
-        <div class="project-card__img project-card__img--ph"><i class='bx bx-train'></i></div>
+        <div class="project-card__img"><img src="../assets/img/work1.jpg" alt="Wagon Analysis &amp; Damage Detection"></div>
         <div class="project-card__body">
           <span class="project-card__tag">CNN · Depth-Anything</span>
           <h3 class="project-card__title">Wagon Analysis &amp; Damage Detection</h3>
@@ -1677,7 +1617,7 @@ ul   { list-style: none; }
         </div>
       </article>
       <article class="project-card tilt reveal reveal--delay-2" data-href="https://github.com/gnanendranaidun">
-        <div class="project-card__img project-card__img--ph"><i class='bx bx-cctv'></i></div>
+        <div class="project-card__img"><img src="../assets/img/work2.jpg" alt="Camera-Only Surveillance System"></div>
         <div class="project-card__body">
           <span class="project-card__tag">OpenCV · Flask · ML</span>
           <h3 class="project-card__title">Camera-Only Surveillance System</h3>
@@ -1685,7 +1625,7 @@ ul   { list-style: none; }
         </div>
       </article>
       <article class="project-card tilt reveal reveal--delay-3" data-href="https://github.com/gnanendranaidun">
-        <div class="project-card__img project-card__img--ph"><i class='bx bx-chat'></i></div>
+        <div class="project-card__img"><img src="../assets/img/work3.jpg" alt="Multilingual Loan Advisor"></div>
         <div class="project-card__body">
           <span class="project-card__tag">RAG · LangChain</span>
           <h3 class="project-card__title">Multilingual Loan Advisor</h3>
@@ -1693,7 +1633,7 @@ ul   { list-style: none; }
         </div>
       </article>
       <article class="project-card tilt reveal reveal--delay-4" data-href="https://github.com/gnanendranaidun">
-        <div class="project-card__img project-card__img--ph"><i class='bx bx-car'></i></div>
+        <div class="project-card__img"><img src="../assets/img/work4.jpg" alt="Real-Time Steering Angle Prediction"></div>
         <div class="project-card__body">
           <span class="project-card__tag">Research · CNN · Optical Flow</span>
           <h3 class="project-card__title">Real-Time Steering Angle Prediction</h3>
