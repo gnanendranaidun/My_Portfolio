@@ -279,10 +279,11 @@ ul   { list-style: none; }
 }
 .hero__namerow .hero__name { margin-bottom: 0; }
 
-/* Outer box: handles ENTRANCE (opacity + slide-in from left).
-   Inner handles the idle float — split so the two transforms
-   never fight over the same property. */
+/* Outer box: ENTRANCE (opacity + slide-in) + anchor for the orbital.
+   The float lives on .hero__portrait-inner so the two transforms
+   never fight; the orbital is a separate layer that stays put. */
 .hero__portrait {
+  position: relative;
   flex: 0 0 auto;
   width: clamp(116px, 16vw, 200px);
   aspect-ratio: 4 / 5;
@@ -290,8 +291,11 @@ ul   { list-style: none; }
   transform: translateX(-32px) scale(0.92);
   animation: portraitIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards;
 }
+/* Framed photo — sits ABOVE the orbital so the electron is
+   occluded as it passes behind on the far side (real depth). */
 .hero__portrait-inner {
   position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   border-radius: var(--r);
@@ -300,42 +304,17 @@ ul   { list-style: none; }
     radial-gradient(120% 80% at 50% 0%, rgba(0,229,255,0.10), transparent 60%),
     linear-gradient(160deg, var(--surface2), var(--surface));
   border: 1px solid var(--border-hi);
-  box-shadow: 0 0 0 1px var(--border), 0 20px 50px rgba(0,0,0,0.45);
-  animation: portraitFloat 6s ease-in-out 1.25s infinite,
-             portraitGlow  4s ease-in-out infinite;
+  box-shadow: 0 0 0 1px var(--border), 0 20px 50px rgba(0,0,0,0.45), 0 0 34px rgba(0,229,255,0.12);
+  animation: portraitFloat 6s ease-in-out 1.25s infinite;
 }
-/* When you drop in <img class="hero__portrait-img" src="..."> it fills the box */
 .hero__portrait-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
 }
-/* Placeholder label (remove once the real image is added) */
-.hero__portrait-ph {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.hero__portrait-ph i {
-  font-size: 1.9rem;
-  color: var(--electric);
-  opacity: 0.75;
-}
-/* Corner brackets — echo the about-section treatment */
+/* Corner brackets */
 .hero__portrait-inner::before,
 .hero__portrait-inner::after {
   content: '';
@@ -343,7 +322,7 @@ ul   { list-style: none; }
   width: 26px;
   height: 26px;
   border: 2px solid var(--electric);
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
 }
 .hero__portrait-inner::before {
@@ -356,16 +335,45 @@ ul   { list-style: none; }
   border-left: none; border-top: none;
   border-radius: 0 0 4px 0;
 }
-/* Scan line sweeping vertically — the "processing" feel */
-.hero__portrait-scan {
+
+/* ===== ELECTRON ORBITAL — the quantum signature =====
+   A tilted ring (the orbital path) with a glowing electron
+   gliding along it, occluded behind the photo on the far arc. */
+.orbit {
   position: absolute;
-  left: 0; right: 0;
-  height: 2px;
-  z-index: 2;
-  background: linear-gradient(to right, transparent, var(--electric), transparent);
-  box-shadow: 0 0 12px var(--electric);
-  opacity: 0;
-  animation: portraitScan 3.4s ease-in-out 1.6s infinite;
+  top: 50%;
+  left: 50%;
+  width: 176%;
+  height: 184%;
+  transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-11deg);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 0;            /* behind the framed photo */
+}
+.orbit__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 229, 255, 0.34);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.12),
+              inset 0 0 18px rgba(0, 229, 255, 0.05);
+}
+.orbit__spin {
+  position: absolute;
+  inset: 0;
+  animation: orbit-spin 9s linear infinite;
+}
+.orbit__electron {
+  position: absolute;
+  top: -4.5px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: var(--electric);
+  box-shadow: 0 0 8px 2px var(--electric),
+              0 0 22px 5px rgba(0, 229, 255, 0.55);
 }
 
 @keyframes portraitIn {
@@ -375,16 +383,19 @@ ul   { list-style: none; }
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-12px); }
 }
-@keyframes portraitGlow {
-  0%, 100% { box-shadow: 0 0 0 1px var(--border),   0 20px 50px rgba(0,0,0,0.45), 0 0 30px rgba(0,229,255,0.10); }
-  50%      { box-shadow: 0 0 0 1px var(--border-hi),0 20px 50px rgba(0,0,0,0.45), 0 0 55px rgba(0,229,255,0.28); }
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
 }
-@keyframes portraitScan {
-  0%   { top: -5%;  opacity: 0; }
-  12%  { opacity: 1; }
-  88%  { opacity: 1; }
-  100% { top: 105%; opacity: 0; }
+
+/* Quieter echo of the orbital around the About photo */
+.orbit--about {
+  width: 150%;
+  height: 144%;
+  transform: translate(-50%, -50%) rotateX(62deg) rotateZ(12deg);
 }
+.orbit--about .orbit__ring { border-color: rgba(0, 229, 255, 0.20); }
+.orbit--about .orbit__spin { animation-duration: 14s; animation-direction: reverse; }
+.orbit--about .orbit__electron { width: 8px; height: 8px; margin-left: -4px; }
 
 .hero__tagline {
   font-size: 1.1rem;
@@ -739,6 +750,8 @@ ul   { list-style: none; }
   position: relative;
 }
 .about__photo {
+  position: relative;
+  z-index: 1;            /* above the orbital so the electron passes behind */
   width: 100%;
   border-radius: var(--r);
   border: 1px solid var(--border);
@@ -1465,9 +1478,12 @@ ul   { list-style: none; }
     <span class="hero__eyebrow">AI &nbsp;&middot;&nbsp; ML &nbsp;&middot;&nbsp; Quantum Computing</span>
     <div class="hero__namerow">
       <div class="hero__portrait">
+        <div class="orbit" aria-hidden="true">
+          <div class="orbit__ring"></div>
+          <div class="orbit__spin"><span class="orbit__electron"></span></div>
+        </div>
         <div class="hero__portrait-inner">
           <img class="hero__portrait-img" src="../assets/img/perfil.png" alt="Gnanendra Naidu">
-          <div class="hero__portrait-scan"></div>
         </div>
       </div>
       <h1 class="hero__name">
@@ -1527,6 +1543,10 @@ ul   { list-style: none; }
     <div class="about__layout">
       <div class="about__left reveal">
         <div class="about__photo-wrap">
+          <div class="orbit orbit--about" aria-hidden="true">
+            <div class="orbit__ring"></div>
+            <div class="orbit__spin"><span class="orbit__electron"></span></div>
+          </div>
           <img src="../assets/img/perfil.png" alt="Gnanendra Naidu" class="about__photo">
         </div>
         <div class="about__chips">
