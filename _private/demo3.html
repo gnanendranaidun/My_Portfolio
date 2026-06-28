@@ -234,13 +234,13 @@ ul   { list-style: none; }
 
 .hero__name-first {
   display: block;
-  font-size: clamp(1.8rem, 4.5vw, 4.5rem);
+  font-size: clamp(3rem, 5vw, 4rem);
   text-shadow: 0 0 80px rgba(0, 229, 255, 0.12);
 }
 
 .hero__name-last {
   display: block;
-  font-size: clamp(3rem, 9vw, 8rem);
+  font-size: clamp(1.8rem, 4.5vw, 4.5rem);
   text-shadow:
     0 0 120px rgba(0, 229, 255, 0.22),
     0 0 240px rgba(0, 229, 255, 0.10);
@@ -265,6 +265,125 @@ ul   { list-style: none; }
 @keyframes shimmer {
   0%, 100% { background-position: 100% 50%; }
   50%       { background-position: 0% 50%; }
+}
+
+/* =====================================================
+   HERO NAME ROW — image placeholder (left) + name (right)
+   ===================================================== */
+.hero__namerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.75rem;
+}
+.hero__namerow .hero__name { margin-bottom: 0; }
+
+/* Outer box: handles ENTRANCE (opacity + slide-in from left).
+   Inner handles the idle float — split so the two transforms
+   never fight over the same property. */
+.hero__portrait {
+  flex: 0 0 auto;
+  width: clamp(116px, 16vw, 200px);
+  aspect-ratio: 4 / 5;
+  opacity: 0;
+  transform: translateX(-32px) scale(0.92);
+  animation: portraitIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards;
+}
+.hero__portrait-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(0,229,255,0.10), transparent 60%),
+    linear-gradient(160deg, var(--surface2), var(--surface));
+  border: 1px solid var(--border-hi);
+  box-shadow: 0 0 0 1px var(--border), 0 20px 50px rgba(0,0,0,0.45);
+  animation: portraitFloat 6s ease-in-out 1.25s infinite,
+             portraitGlow  4s ease-in-out infinite;
+}
+/* When you drop in <img class="hero__portrait-img" src="..."> it fills the box */
+.hero__portrait-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+/* Placeholder label (remove once the real image is added) */
+.hero__portrait-ph {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero__portrait-ph i {
+  font-size: 1.9rem;
+  color: var(--electric);
+  opacity: 0.75;
+}
+/* Corner brackets — echo the about-section treatment */
+.hero__portrait-inner::before,
+.hero__portrait-inner::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--electric);
+  z-index: 3;
+  pointer-events: none;
+}
+.hero__portrait-inner::before {
+  top: 8px; left: 8px;
+  border-right: none; border-bottom: none;
+  border-radius: 4px 0 0 0;
+}
+.hero__portrait-inner::after {
+  bottom: 8px; right: 8px;
+  border-left: none; border-top: none;
+  border-radius: 0 0 4px 0;
+}
+/* Scan line sweeping vertically — the "processing" feel */
+.hero__portrait-scan {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(to right, transparent, var(--electric), transparent);
+  box-shadow: 0 0 12px var(--electric);
+  opacity: 0;
+  animation: portraitScan 3.4s ease-in-out 1.6s infinite;
+}
+
+@keyframes portraitIn {
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes portraitFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes portraitGlow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--border),   0 20px 50px rgba(0,0,0,0.45), 0 0 30px rgba(0,229,255,0.10); }
+  50%      { box-shadow: 0 0 0 1px var(--border-hi),0 20px 50px rgba(0,0,0,0.45), 0 0 55px rgba(0,229,255,0.28); }
+}
+@keyframes portraitScan {
+  0%   { top: -5%;  opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
 }
 
 .hero__tagline {
@@ -879,6 +998,9 @@ ul   { list-style: none; }
   .blog-card__img { min-height: 160px; height: 160px; }
   .stats-bar__inner { grid-template-columns: 1fr; gap: 2rem; }
   .hero__name-first, .hero__name-last { letter-spacing: -0.01em; }
+  /* Stack the placeholder above a centered name on small screens */
+  .hero__namerow { flex-direction: column; gap: 1.5rem; }
+  .hero__name { text-align: center; }
 }
 @media (max-width: 480px) {
   .projects__grid { grid-template-columns: 1fr; }
@@ -888,6 +1010,8 @@ ul   { list-style: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .hero__name-first,
   .hero__name-last { -webkit-text-fill-color: var(--white); background: none; }
+  /* Animations are off here, so reveal the portrait statically */
+  .hero__portrait { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -925,10 +1049,23 @@ ul   { list-style: none; }
 
   <div class="hero__content">
     <span class="hero__eyebrow">AI &nbsp;&middot;&nbsp; ML &nbsp;&middot;&nbsp; Quantum Computing</span>
-    <h1 class="hero__name">
-      <span class="hero__name-first">Gnanendra</span>
-      <span class="hero__name-last">Naidu</span>
-    </h1>
+    <div class="hero__namerow">
+      <!-- Image placeholder — replace the .hero__portrait-ph block with
+           <img class="hero__portrait-img" src="..." alt="Gnanendra Naidu"> -->
+      <div class="hero__portrait">
+        <div class="hero__portrait-inner">
+          <div class="hero__portrait-scan"></div>
+          <div class="hero__portrait-ph">
+            <i class='bx bx-image-add'></i>
+            <span>Your<br>photo</span>
+          </div>
+        </div>
+      </div>
+      <h1 class="hero__name">
+        <span class="hero__name-first">Gnanendra</span>
+        <span class="hero__name-last">Naidu</span>
+      </h1>
+    </div>
     <p class="hero__tagline">
       Building at the intersection of deep learning and quantum systems &mdash;
       from CNN models to qubit circuits.
