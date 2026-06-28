@@ -1,267 +1,2125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Gnanendra Naidu — AI & ML Developer</title>
-    <meta name="description" content="Gnanendra Naidu's portfolio — AI, ML, and quantum computing developer based in Bengaluru.">
-    <meta name="keywords" content="AI, ML, Software Developer, Portfolio, Gnanendra Naidu, Quantum Computing, Deep Learning">
-    <meta name="author" content="Gnanendra Naidu N">
-    <meta name="robots" content="index, follow">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gnanendranaidun.github.io/My_Portfolio">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="3AfE_oubI6sOO2SYP24SqvQLbI5tg6kPPrrhkPJX3VY" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Demo 2 — Gnanendra Naidu</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+/* =====================================================
+   DESIGN TOKENS
+   Derived from the electric blue fluid wave video:
+   deep navy base, monochromatic blue mid-tones,
+   electric cyan as the single accent that cuts through
+   ===================================================== */
+:root {
+  --bg:        #04091A;   /* deep ocean floor */
+  --surface:   #0A1228;   /* card bg */
+  --surface2:  #0E1834;   /* alt section bg */
+  --electric:  #00E5FF;   /* cyan — the one accent, sparingly */
+  --elec-dim:  rgba(0, 229, 255, 0.12);
+  --elec-glow: rgba(0, 229, 255, 0.25);
+  --white:     #FFFFFF;
+  --off:       #C4D6F0;   /* body text — blue-tinted off-white */
+  --muted:     rgba(196, 214, 240, 0.48);
+  --border:    rgba(0, 229, 255, 0.10);
+  --border-hi: rgba(0, 229, 255, 0.40);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'Fira Code', monospace;
+
+  --nav-h:  4.5rem;
+  --max-w:  1120px;
+  --r:      12px;
+  --ease:   0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =====================================================
+   RESET
+   ===================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--off);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img  { max-width: 100%; height: auto; display: block; }
+a    { text-decoration: none; color: inherit; }
+ul   { list-style: none; }
+
+/* =====================================================
+   NAV
+   ===================================================== */
+.l-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 200;
+  height: var(--nav-h);
+  transition: background var(--ease), border-color var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.l-header.scrolled {
+  background: rgba(4, 9, 26, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom-color: var(--border);
+}
+.nav {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+.nav__logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav__logo span { color: var(--electric); }
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+}
+.nav__link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--ease);
+  position: relative;
+}
+.nav__link:hover, .nav__link.active { color: var(--white); }
+.nav__link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1.5px;
+  background: var(--electric);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--electric);
+}
+.nav__link--cta {
+  border: 1px solid var(--border-hi);
+  color: var(--electric) !important;
+  padding: 0.45rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  transition: all var(--ease);
+}
+.nav__link--cta:hover {
+  background: var(--elec-dim);
+  box-shadow: 0 0 20px var(--elec-glow);
+}
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none; border: none;
+  cursor: pointer; padding: 4px;
+}
+.nav__toggle span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--white); border-radius: 2px;
+  transition: var(--ease);
+}
+
+/* =====================================================
+   HERO
+   ===================================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
+
+/* Background video */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+}
+
+/* Dark overlay — heavier at bottom so page transition is smooth */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(4,  9, 26, 0.30) 0%,
+    rgba(4,  9, 26, 0.50) 50%,
+    rgba(4,  9, 26, 0.85) 100%
+  );
+}
+
+/* Mouse-following glow layer */
+.hero__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    500px circle at var(--glow-x) var(--glow-y),
+    rgba(0, 229, 255, 0.07),
+    transparent 65%
+  );
+  pointer-events: none;
+  transition: background 0.08s linear;
+}
+
+/* Content */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: calc(var(--nav-h) + 3rem) 2rem 5rem;
+  /* .hero is a flex container, so this is a flex item — without
+     width:100% it shrink-wraps to its content and gets centered by
+     justify-content, so the name could never reach the site edge. */
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.hero__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--electric);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 1.75rem;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.4s forwards;
+  /* Override the inherited text-align:center from .hero__content.
+     Both spans are full-width blocks, so right-aligning the text
+     pins each line's right edge to the content edge (= nav edge). */
+  text-align: right;
+}
+
+.hero__name-first {
+  display: block;
+  font-size: clamp(3rem, 5vw, 4rem);
+  text-shadow: 0 0 80px rgba(0, 229, 255, 0.12);
+}
+
+.hero__name-last {
+  display: block;
+  font-size: clamp(1.8rem, 4.5vw, 4.5rem);
+  text-shadow:
+    0 0 120px rgba(0, 229, 255, 0.22),
+    0 0 240px rgba(0, 229, 255, 0.10);
+}
+
+/* Shimmer applied to both lines, staggered so they're out of sync */
+.hero__name-first,
+.hero__name-last {
+  background: linear-gradient(
+    105deg,
+    var(--white)    40%,
+    var(--electric) 50%,
+    var(--white)    60%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out 1.5s infinite;
+}
+.hero__name-last { animation-delay: 1.7s; }
+@keyframes shimmer {
+  0%, 100% { background-position: 100% 50%; }
+  50%       { background-position: 0% 50%; }
+}
+
+/* =====================================================
+   HERO NAME ROW — image placeholder (left) + name (right)
+   ===================================================== */
+.hero__namerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.75rem;
+}
+.hero__namerow .hero__name { margin-bottom: 0; }
+
+/* Outer box: handles ENTRANCE (opacity + slide-in from left).
+   Inner handles the idle float — split so the two transforms
+   never fight over the same property. */
+.hero__portrait {
+  flex: 0 0 auto;
+  width: clamp(116px, 16vw, 200px);
+  aspect-ratio: 4 / 5;
+  opacity: 0;
+  transform: translateX(-32px) scale(0.92);
+  animation: portraitIn 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards;
+}
+.hero__portrait-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(0,229,255,0.10), transparent 60%),
+    linear-gradient(160deg, var(--surface2), var(--surface));
+  border: 1px solid var(--border-hi);
+  box-shadow: 0 0 0 1px var(--border), 0 20px 50px rgba(0,0,0,0.45);
+  animation: portraitFloat 6s ease-in-out 1.25s infinite,
+             portraitGlow  4s ease-in-out infinite;
+}
+/* When you drop in <img class="hero__portrait-img" src="..."> it fills the box */
+.hero__portrait-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+/* Placeholder label (remove once the real image is added) */
+.hero__portrait-ph {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero__portrait-ph i {
+  font-size: 1.9rem;
+  color: var(--electric);
+  opacity: 0.75;
+}
+/* Corner brackets — echo the about-section treatment */
+.hero__portrait-inner::before,
+.hero__portrait-inner::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--electric);
+  z-index: 3;
+  pointer-events: none;
+}
+.hero__portrait-inner::before {
+  top: 8px; left: 8px;
+  border-right: none; border-bottom: none;
+  border-radius: 4px 0 0 0;
+}
+.hero__portrait-inner::after {
+  bottom: 8px; right: 8px;
+  border-left: none; border-top: none;
+  border-radius: 0 0 4px 0;
+}
+/* Scan line sweeping vertically — the "processing" feel */
+.hero__portrait-scan {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(to right, transparent, var(--electric), transparent);
+  box-shadow: 0 0 12px var(--electric);
+  opacity: 0;
+  animation: portraitScan 3.4s ease-in-out 1.6s infinite;
+}
+
+@keyframes portraitIn {
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes portraitFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes portraitGlow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--border),   0 20px 50px rgba(0,0,0,0.45), 0 0 30px rgba(0,229,255,0.10); }
+  50%      { box-shadow: 0 0 0 1px var(--border-hi),0 20px 50px rgba(0,0,0,0.45), 0 0 55px rgba(0,229,255,0.28); }
+}
+@keyframes portraitScan {
+  0%   { top: -5%;  opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
+}
+
+.hero__tagline {
+  font-size: 1.1rem;
+  color: var(--off);
+  max-width: 44ch;
+  margin: 0 auto 2.75rem;
+  line-height: 1.75;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.6s forwards;
+}
+
+.hero__social {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2.75rem;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.75s forwards;
+}
+.hero__social a {
+  width: 2.4rem; height: 2.4rem;
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  color: var(--muted);
+  transition: all var(--ease);
+}
+.hero__social a:hover {
+  border-color: var(--electric);
+  color: var(--electric);
+  box-shadow: 0 0 16px rgba(0,229,255,0.3);
+  transform: translateY(-2px);
+}
+
+.hero__ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.9s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll indicator */
+.hero__scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.4s forwards;
+}
+.hero__scroll span {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--electric), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.1); }
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all var(--ease);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn--primary {
+  background: var(--electric);
+  color: var(--bg);
+  border-color: var(--electric);
+}
+.btn--primary:hover {
+  background: transparent;
+  color: var(--electric);
+  box-shadow: 0 0 30px var(--elec-glow);
+}
+.btn--ghost {
+  background: transparent;
+  border-color: rgba(0,229,255,0.3);
+  color: var(--off);
+}
+.btn--ghost:hover {
+  border-color: var(--electric);
+  color: var(--electric);
+  box-shadow: 0 0 20px var(--elec-glow);
+}
+
+/* =====================================================
+   STATS BAR
+   ===================================================== */
+.stats-bar {
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 2rem;
+}
+.stats-bar__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+.stat__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--electric);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(0,229,255,0.35);
+}
+.stat__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 0.6rem;
+}
+
+/* =====================================================
+   SHARED SECTIONS
+   ===================================================== */
+.section        { padding: 6rem 0; }
+.section--alt   { background: var(--surface2); }
+.section__inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+.section__header { margin-bottom: 3.5rem; }
+
+.section__eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.6rem;
+}
+.section__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* Section divider line — echoes the cyan energy */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-hi), transparent);
+}
+
+/* =====================================================
+   REVEAL ANIMATIONS
+   ===================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible              { opacity: 1; transform: none; }
+.reveal--delay-1             { transition-delay: 0.10s; }
+.reveal--delay-2             { transition-delay: 0.20s; }
+.reveal--delay-3             { transition-delay: 0.30s; }
+.reveal--delay-4             { transition-delay: 0.40s; }
+
+/* =====================================================
+   PROJECT CARDS
+   ===================================================== */
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--ease), box-shadow var(--ease);
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0,229,255,0.04) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--ease);
+  pointer-events: none;
+  z-index: 1;
+}
+.project-card:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,229,255,0.08);
+}
+.project-card:hover::before { opacity: 1; }
+
+.project-card__img {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface2);
+}
+.project-card__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: transform 0.5s ease, opacity var(--ease);
+}
+.project-card:hover .project-card__img img {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+.project-card__body { padding: 1.25rem; }
+.project-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.project-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.01em;
+}
+.project-card__desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* =====================================================
+   ACHIEVEMENTS
+   ===================================================== */
+.achievements__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.achievement-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  transition: all var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.achievement-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--electric);
+  box-shadow: 0 0 20px var(--elec-glow);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--ease);
+}
+.achievement-card:hover {
+  border-color: var(--border-hi);
+  background: var(--surface2);
+  transform: translateX(4px);
+}
+.achievement-card:hover::after { transform: scaleY(1); }
+
+.achievement-card__stat {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--electric);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  text-shadow: 0 0 40px rgba(0,229,255,0.3);
+}
+.achievement-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.achievement-card__desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* =====================================================
+   ABOUT
+   ===================================================== */
+.about__layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.about__photo-wrap {
+  position: relative;
+}
+.about__photo {
+  width: 100%;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  filter: grayscale(20%) brightness(0.9);
+  transition: filter var(--ease);
+}
+.about__photo-wrap:hover .about__photo {
+  filter: grayscale(0%) brightness(1);
+}
+/* Cyan corner accent */
+.about__photo-wrap::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: -6px;
+  width: 50px; height: 50px;
+  border-top: 2px solid var(--electric);
+  border-left: 2px solid var(--electric);
+  border-radius: 4px 0 0 0;
+  box-shadow: -4px -4px 20px var(--elec-glow);
+}
+.about__photo-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; right: -6px;
+  width: 50px; height: 50px;
+  border-bottom: 2px solid var(--electric);
+  border-right: 2px solid var(--electric);
+  border-radius: 0 0 4px 0;
+  box-shadow: 4px 4px 20px var(--elec-glow);
+}
+.about__chips {
+  display: flex; flex-wrap: wrap;
+  gap: 0.5rem; margin-top: 1.25rem;
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.about__heading {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.about__right p {
+  color: var(--muted);
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  font-size: 0.925rem;
+}
+.about__list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.about__list li {
+  font-size: 0.875rem;
+  color: var(--muted);
+  padding-left: 1.4rem;
+  position: relative;
+  line-height: 1.55;
+}
+.about__list li::before {
+  content: '//';
+  position: absolute;
+  left: 0;
+  color: var(--electric);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+.about__list a {
+  color: var(--off);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,229,255,0.2);
+  transition: border-color var(--ease), color var(--ease);
+}
+.about__list a:hover { color: var(--electric); border-color: var(--electric); }
+
+/* =====================================================
+   BLOG
+   ===================================================== */
+.blog__list { display: flex; flex-direction: column; gap: 1.25rem; }
+.blog-card {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: all var(--ease);
+}
+.blog-card:hover {
+  border-color: var(--border-hi);
+  transform: translateX(4px);
+  box-shadow: 0 0 30px rgba(0,229,255,0.06);
+}
+.blog-card__img {
+  overflow: hidden;
+  min-height: 150px;
+}
+.blog-card__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: transform 0.5s ease, opacity var(--ease);
+  filter: saturate(0.7);
+}
+.blog-card:hover .blog-card__img img {
+  transform: scale(1.06);
+  opacity: 1;
+  filter: saturate(1);
+}
+.blog-card__img--placeholder {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 150px;
+  background: var(--surface2);
+}
+.blog-card__img--placeholder span {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--electric);
+  opacity: 0.4;
+  letter-spacing: 0.1em;
+}
+.blog-card__body {
+  padding: 1.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.blog-card__tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.5rem;
+}
+.blog-card__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.blog-card__desc {
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* =====================================================
+   CONTACT
+   ===================================================== */
+.contact__inner { text-align: center; }
+.contact__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.0;
+  margin-bottom: 1rem;
+}
+.contact__heading span {
+  display: block;
+  color: var(--electric);
+  text-shadow: 0 0 60px rgba(0,229,255,0.4);
+}
+.contact__desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 42ch;
+  margin: 0 auto 2.75rem;
+  line-height: 1.75;
+}
+.contact__links {
+  display: flex; gap: 0.9rem;
+  justify-content: center; flex-wrap: wrap;
+}
+.contact__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--off);
+  transition: all var(--ease);
+}
+.contact__link i { font-size: 1.05rem; }
+.contact__link:hover {
+  border-color: var(--electric);
+  color: var(--electric);
+  box-shadow: 0 0 20px rgba(0,229,255,0.15);
+  background: var(--elec-dim);
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer {
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.footer b { color: var(--electric); font-weight: 400; }
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 900px) {
+  .projects__grid { grid-template-columns: repeat(2, 1fr); }
+  .about__layout  { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about__photo-wrap { max-width: 220px; margin: 0 auto; }
+  .about__chips, .about__heading { text-align: center; justify-content: center; }
+}
+@media (max-width: 768px) {
+  .nav__menu {
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0;
+    background: rgba(4, 9, 26, 0.97);
+    backdrop-filter: blur(18px);
+    padding: 2rem;
+    transform: translateY(-110%);
+    transition: transform 0.3s ease;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav__menu.show { transform: translateY(0); }
+  .nav__list      { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  .nav__toggle    { display: flex; }
+  .achievements__grid { grid-template-columns: 1fr; }
+  .blog-card      { grid-template-columns: 1fr; }
+  .blog-card__img { min-height: 160px; height: 160px; }
+  .stats-bar__inner { grid-template-columns: 1fr; gap: 2rem; }
+  .hero__name-first, .hero__name-last { letter-spacing: -0.01em; }
+  /* Stack the placeholder above a centered name on small screens */
+  .hero__namerow { flex-direction: column; gap: 1.5rem; }
+  .hero__name { text-align: center; }
+}
+@media (max-width: 480px) {
+  .projects__grid { grid-template-columns: 1fr; }
+  .section { padding: 4rem 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .hero__name-first,
+  .hero__name-last { -webkit-text-fill-color: var(--white); background: none; }
+  /* Animations are off here, so reveal the portrait statically */
+  .hero__portrait { opacity: 1; transform: none; }
+}
+
+
+/* =====================================================
+   RESUME-DERIVED SECTIONS
+   ===================================================== */
+/* ===== EXPERIENCE (from resume) ===== */
+/* =====================================================
+   EXPERIENCE — vertical cyan timeline
+   ===================================================== */
+.exp-timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+/* The thin cyan vertical line */
+.exp-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0.4rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--border-hi) 8%,
+    var(--border-hi) 92%,
+    transparent
+  );
+}
+
+.exp-entry {
+  position: relative;
+  padding-bottom: 3rem;
+}
+.exp-entry:last-child {
+  padding-bottom: 0;
+}
+
+/* Glowing node dot anchored on the line */
+.exp-entry::before {
+  content: '';
+  position: absolute;
+  left: calc(-2.5rem + 0.4rem);
+  top: 0.55rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--electric);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 16px var(--elec-glow), 0 0 28px rgba(0, 229, 255, 0.3);
+}
+
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.6rem 1.75rem;
+  transition: all var(--ease);
+}
+.exp-card:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+}
+
+.exp-card__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+  flex-wrap: wrap;
+}
+.exp-card__role {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+.exp-card__company {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--electric);
+  margin-top: 0.25rem;
+  letter-spacing: 0.01em;
+}
+.exp-card__date {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.exp-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.exp-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.exp-card__bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.exp-card__bullets li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.exp-card__bullets li::before {
+  content: '//';
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  color: var(--electric);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+@media (max-width: 768px) {
+  .exp-timeline {
+    padding-left: 1.75rem;
+  }
+  .exp-entry::before {
+    left: calc(-1.75rem + 0.4rem);
+  }
+  .exp-card__top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .exp-card__date {
+    order: -1;
+  }
+}
+
+/* ===== EDUCATION (from resume) ===== */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.edu-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 2rem;
+  transition: all var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.edu-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--electric);
+  box-shadow: 0 0 20px var(--elec-glow);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--ease);
+}
+.edu-card:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,229,255,0.08);
+}
+.edu-card:hover::after { transform: scaleY(1); }
+
+.edu-card__metric {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--electric);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(0,229,255,0.3);
+}
+.edu-card__metric-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.edu-card__inst {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--white);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.edu-card__meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.9rem;
+}
+.edu-card__degree {
+  font-size: 0.85rem;
+  color: var(--off);
+  line-height: 1.6;
+}
+.edu-card__extra {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .edu-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== SKILLS (from resume) ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.skills-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem 1.5rem 1.65rem;
+  transition: all var(--ease);
+}
+.skills-group:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+}
+.skills-group__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--electric);
+  margin-bottom: 1.1rem;
+  display: block;
+}
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.skills-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all var(--ease);
+  cursor: default;
+}
+.skills-tag:hover {
+  border-color: var(--border-hi);
+  color: var(--off);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.06);
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+}
+
+/* ===== EXTRACURRICULAR (from resume) ===== */
+.extra-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.extra-card {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.4rem 1.5rem;
+  transition: all var(--ease);
+}
+.extra-card:hover {
+  border-color: var(--border-hi);
+  transform: translateX(4px);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+}
+.extra-card__icon {
+  flex: 0 0 auto;
+  width: 2.9rem;
+  height: 2.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--elec-dim);
+  color: var(--electric);
+  font-size: 1.4rem;
+  transition: all var(--ease);
+}
+.extra-card:hover .extra-card__icon {
+  border-color: var(--border-hi);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.18);
+}
+.extra-card__body {
+  min-width: 0;
+}
+.extra-card__org {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+.extra-card__role {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--electric);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.extra-card__date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0.3rem;
+}
+@media (max-width: 768px) {
+  .extra-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== PROJECTS (from resume) ===== */
+.project-card__img--ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.08), transparent 65%),
+    linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+}
+
+.project-card__img--ph i {
+  color: var(--electric);
+  opacity: 0.5;
+  font-size: 2.4rem;
+}
+
+/* ===== ACHIEVEMENTS (from resume) ===== */
+.ach-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  transition: color var(--ease);
+}
+.achievement-card:hover .ach-hint { color: var(--electric); }
+.ach-hint i { font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+  .ach-hint { font-size: 0.6rem; }
+}
+</style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <header class="l-header" id="header">
-        <nav class="nav">
-            <a href="#home" class="nav__logo">GN</a>
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li><a href="#home" class="nav__link">Home</a></li>
-                    <li><a href="#about" class="nav__link">About</a></li>
-                    <li><a href="#work" class="nav__link">Projects</a></li>
-                    <li><a href="#blog" class="nav__link">Blog</a></li>
-                    <li><a href="#achievements" class="nav__link">Achievements</a></li>
-                    <li><a href="#contact" class="nav__link">Contact</a></li>
-                    <li><a href="quampy.html" class="nav__link nav__link--accent">Quampy</a></li>
-                </ul>
+<!-- ===== NAV ===== -->
+<header class="l-header" id="header">
+  <nav class="nav">
+    <a href="#home" class="nav__logo">GN<span>.</span></a>
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li><a href="#home"         class="nav__link">Home</a></li>
+        <li><a href="#about"        class="nav__link">About</a></li>
+        <li><a href="#experience"   class="nav__link">Experience</a></li>
+        <li><a href="#work"         class="nav__link">Projects</a></li>
+        <li><a href="#skills"       class="nav__link">Skills</a></li>
+        <li><a href="#achievements" class="nav__link">Awards</a></li>
+        <li><a href="#blog"         class="nav__link">Blog</a></li>
+        <li><a href="#contact"      class="nav__link nav__link--cta">Contact</a></li>
+      </ul>
+    </div>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <video class="hero__video" autoplay loop muted playsinline>
+    <source src="https://cdn.dribbble.com/userupload/3765823/file/original-883c07145e6d50125d63e79995fbf3ae.mp4" type="video/mp4">
+  </video>
+  <div class="hero__overlay"></div>
+  <div class="hero__glow" id="hero-glow"></div>
+
+  <div class="hero__content">
+    <span class="hero__eyebrow">AI &nbsp;&middot;&nbsp; ML &nbsp;&middot;&nbsp; DevOps &nbsp;&middot;&nbsp; MLOps &nbsp;&middot;&nbsp; AIOps</span>
+    <div class="hero__namerow">
+    
+      <div class="about__photo-wrap">
+          <img src="../assets/img/perfil.png" alt="Gnanendra Naidu" class="about__photo">
+        </div>
+      <h1 class="hero__name">
+        <span class="hero__name-first">Gnanendra</span>
+        <span class="hero__name-last">Naidu</span>
+      </h1>
+    </div>
+    <p class="hero__tagline">
+      Building at the intersection of deep learning and quantum systems &mdash;
+      from CNN models to qubit circuits.
+    </p>
+    <div class="hero__social">
+      <a href="https://linkedin.com/in/gnanendranaidun" target="_blank" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+      <a href="https://github.com/gnanendranaidun"      target="_blank" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+      <a href="https://x.com/GnanendraN87881"           target="_blank" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+      <a href="https://discord.gg/h7TzC7bc"             target="_blank" aria-label="Discord"><i class='bx bxl-discord'></i></a>
+    </div>
+    <div class="hero__ctas">
+      <a href="#contact" class="btn btn--primary">Get in touch</a>
+      <a href="https://drive.google.com/file/d/1D-Nm0PQ1lzSSceQvWJZe3O2MnPDVxQrO/view?usp=sharing"
+         target="_blank" class="btn btn--ghost">Resume</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar" id="stats">
+  <div class="stats-bar__inner">
+    <div>
+      <span class="stat__num" data-target="9">0</span>
+      <span class="stat__label">Projects shipped</span>
+    </div>
+    <div>
+      <span class="stat__num" data-target="500" data-suffix="+">0</span>
+      <span class="stat__label">DSA problems solved</span>
+    </div>
+    <div>
+      <span class="stat__num" data-target="1460" data-suffix="+">0</span>
+      <span class="stat__label">LeetCode max rating</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<section class="section" id="about">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Who I am</span>
+      <h2 class="section__title">About</h2>
+    </div>
+    <div class="about__layout">
+      <div class="about__left reveal">
+        <div class="about__photo-wrap">
+          <img src="../assets/img/perfil.png" alt="Gnanendra Naidu" class="about__photo">
+        </div>
+        <div class="about__chips">
+          <span class="chip">RVCE &middot; AI &amp; ML</span>
+          <span class="chip">CGPA 8.96</span>
+          <span class="chip">App Store dev</span>
+          <span class="chip">Quantum ML</span>
+          <span class="chip">Learning German</span>
+        </div>
+      </div>
+      <div class="about__right reveal reveal--delay-1">
+        <h3 class="about__heading">I'm Gnanendra</h3>
+        <p>An AI &amp; ML engineer from Bengaluru, currently pursuing a B.E. in Artificial Intelligence &amp; Machine Learning at RV College of Engineering (CGPA 8.96). I build across the stack &mdash; from deep-learning and computer-vision pipelines to full iOS apps and cloud backends.</p>
+        <p>Right now I'm an Apprentice Associate III at Allstate India, building AWS data pipelines for RAG systems. Before that I shipped a published iOS app at Einsteini.ai (USA) and a child-health platform with Skids.Health. I'm drawn to problems at the edge of what's understood &mdash; quantum machine learning, multimodal estimation, and real-time vision.</p>
+        <ul class="about__list">
+          <li>Deep learning, pose estimation and CNN-based vision models</li>
+          <li>Fascinated by Quantum ML and Quantum Cryptography</li>
+          <li>Shipped a LinkedIn-companion iOS app to the Apple App Store</li>
+          <li>Solved <a href="https://leetcode.com/u/gnanuqubit" target="_blank">500+ DSA problems</a> &mdash; LeetCode rating 1460+ (top 38%)</li>
+          <li>Learning German in my free time</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section section--alt" id="experience">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Where I've worked</span>
+      <h2 class="section__title">Experience</h2>
+    </div>
+
+    <div class="exp-timeline">
+
+      <div class="exp-entry reveal">
+        <div class="exp-card">
+          <div class="exp-card__top">
+            <div>
+              <span class="exp-card__role">Apprentice Associate III</span>
+              <span class="exp-card__company">Allstate India Private Ltd</span>
             </div>
-            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
-    </header>
+            <span class="exp-card__date">Dec 2025 &mdash; Present</span>
+          </div>
+          <div class="exp-card__tags">
+            <span class="exp-card__tag">AWS</span>
+            <span class="exp-card__tag">RAG</span>
+            <span class="exp-card__tag">Data Pipeline</span>
+          </div>
+          <ul class="exp-card__bullets">
+            <li>Built a streaming data pipeline that transforms trip telemetry into standardized natural-language descriptions using local inference models and rule-based processing.</li>
+            <li>Deployed the data production workflow on AWS and prepared the structured corpus for Retrieval-Augmented Generation (RAG) systems.</li>
+          </ul>
+        </div>
+      </div>
 
-    <main>
-
-        <!-- HERO -->
-        <section class="hero" id="home">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero__content">
-                <div class="hero__text">
-                    <span class="hero__eyebrow">AI &middot; ML &middot; Quantum Computing</span>
-                    <h1 class="hero__name">Gnanendra<br>Naidu</h1>
-                    <p class="hero__tagline">Building at the intersection of deep learning and quantum systems.</p>
-                    <div class="hero__social">
-                        <a href="https://linkedin.com/in/gnanendranaidun" target="_blank" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
-                        <a href="https://github.com/gnanendranaidun" target="_blank" aria-label="GitHub"><i class='bx bxl-github'></i></a>
-                        <a href="https://x.com/GnanendraN87881" target="_blank" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
-                        <a href="https://discord.gg/h7TzC7bc" target="_blank" aria-label="Discord"><i class='bx bxl-discord'></i></a>
-                    </div>
-                    <div class="hero__ctas">
-                        <a href="#contact" class="btn btn--primary">Get in touch</a>
-                        <a href="https://drive.google.com/file/d/1D-Nm0PQ1lzSSceQvWJZe3O2MnPDVxQrO/view?usp=sharing" target="_blank" class="btn btn--ghost">Resume</a>
-                    </div>
-                </div>
-                <div class="hero__photo">
-                    <img src="assets/img/perfil.png" alt="Gnanendra Naidu">
-                </div>
+      <div class="exp-entry reveal reveal--delay-1">
+        <div class="exp-card">
+          <div class="exp-card__top">
+            <div>
+              <span class="exp-card__role">Product Developer Intern</span>
+              <span class="exp-card__company">Einsteini.ai (Remote, USA)</span>
             </div>
-        </section>
+            <span class="exp-card__date">Apr 2025 &mdash; Nov 2025</span>
+          </div>
+          <div class="exp-card__tags">
+            <span class="exp-card__tag">Swift</span>
+            <span class="exp-card__tag">AWS</span>
+            <span class="exp-card__tag">MongoDB</span>
+            <span class="exp-card__tag">iOS</span>
+          </div>
+          <ul class="exp-card__bullets">
+            <li>Integrated AI capabilities to augment networking workflows and user productivity.</li>
+            <li>Built a LinkedIn Companion iOS app &amp; Chrome extension using Swift, OAuth, AWS and MongoDB &mdash; the iOS app is published on the Apple App Store.</li>
+            <li>Developed and maintained the full AWS backend and MongoDB infrastructure, and implemented payments via Stripe checkout and Apple in-app purchases.</li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- PROJECTS -->
-        <section class="section" id="work">
-            <div class="section__inner">
-                <h2 class="section__title">Projects</h2>
-                <div class="projects__grid">
-
-                    <article class="project-card" data-href="https://github.com/gnanendranaidun/Crescere_test.git">
-                        <div class="project-card__img">
-                            <img src="assets/img/Screenshot 2025-02-12 at 22.14.09.png" alt="Crescere">
-                        </div>
-                        <div class="project-card__overlay">
-                            <span class="project-card__tag">Deep Learning &middot; Health</span>
-                            <h3 class="project-card__name">Crescere</h3>
-                            <p class="project-card__desc">Child health monitoring ecosystem built in collaboration with Skids.health.</p>
-                            <span class="project-card__link">View on GitHub &rarr;</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card" data-href="https://github.com/gnanendranaidun/qubit_rotational_explorer">
-                        <div class="project-card__img">
-                            <img src="assets/img/Qubit project.jpeg" alt="Qubit Rotational Explorer">
-                        </div>
-                        <div class="project-card__overlay">
-                            <span class="project-card__tag">Quantum Computing &middot; Visualization</span>
-                            <h3 class="project-card__name">Qubit Rotational Explorer</h3>
-                            <p class="project-card__desc">Interactive visualization of qubit state rotations on the Bloch sphere.</p>
-                            <span class="project-card__link">View on GitHub &rarr;</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card" data-href="https://github.com/AnjKal/Pothole_DTL">
-                        <div class="project-card__img">
-                            <img src="assets/img/logo copy.png" alt="Civic Issue Reporting Portal">
-                        </div>
-                        <div class="project-card__overlay">
-                            <span class="project-card__tag">Design Thinking &middot; Web</span>
-                            <h3 class="project-card__name">Civic Issue Reporting Portal</h3>
-                            <p class="project-card__desc">Pothole and civic issue reporting system from a design thinking course.</p>
-                            <span class="project-card__link">View on GitHub &rarr;</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card" data-href="https://github.com/gnanendranaidun/Visible-Spectrophotometer">
-                        <div class="project-card__img">
-                            <img src="assets/img/Screenshot 2025-02-12 at 22.22.52.png" alt="Visible Spectrophotometer">
-                        </div>
-                        <div class="project-card__overlay">
-                            <span class="project-card__tag">Hardware &middot; Optics &middot; Python</span>
-                            <h3 class="project-card__name">Visible Spectrophotometer</h3>
-                            <p class="project-card__desc">Prototype using visible light absorption to identify solutions — built from hardware up.</p>
-                            <span class="project-card__link">View on GitHub &rarr;</span>
-                        </div>
-                    </article>
-
-                    <article class="project-card" data-href="https://github.com/gnanendranaidun/Dynamic-object-recognition">
-                        <div class="project-card__img">
-                            <img src="assets/img/object detection.jpeg" alt="Dynamic Object Recognition">
-                        </div>
-                        <div class="project-card__overlay">
-                            <span class="project-card__tag">Computer Vision &middot; CNN</span>
-                            <h3 class="project-card__name">Dynamic Object Recognition</h3>
-                            <p class="project-card__desc">Real-time object detection and classification with automated command output.</p>
-                            <span class="project-card__link">View on GitHub &rarr;</span>
-                        </div>
-                    </article>
-
-                </div>
+      <div class="exp-entry reveal reveal--delay-2">
+        <div class="exp-card">
+          <div class="exp-card__top">
+            <div>
+              <span class="exp-card__role">Software Developer</span>
+              <span class="exp-card__company">Skids.Health (Startup, Bangalore)</span>
             </div>
-        </section>
+            <span class="exp-card__date">Oct 2024 &mdash; Jan 2025</span>
+          </div>
+          <div class="exp-card__tags">
+            <span class="exp-card__tag">Computer Vision</span>
+            <span class="exp-card__tag">IoT</span>
+          </div>
+          <ul class="exp-card__bullets">
+            <li>Developed Crescere, an ecosystem of mobile and web apps with a database for child health monitoring &mdash; leveraging computer vision and IoT to perform anthropometric measurements and analyze health conditions.</li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- ACHIEVEMENTS -->
-        <section class="section section--dark" id="achievements">
-            <div class="section__inner">
-                <h2 class="section__title">Achievements</h2>
-                <div class="achievements__grid">
+    </div>
+  </div>
+</section>
 
-                    <a href="https://www.linkedin.com/posts/gnanendranaidun_minedhackathon2025-hackathon-ai-activity-7292015024905035777-UTIb" target="_blank" class="achievement-card">
-                        <span class="achievement-card__stat">3rd</span>
-                        <h3 class="achievement-card__title">National Hackathon</h3>
-                        <p class="achievement-card__desc">Mined Hackathon 2025 &mdash; national-level AI competition.</p>
-                    </a>
+<div class="section-divider"></div>
 
-                    <a href="#achievements" class="achievement-card">
-                        <span class="achievement-card__stat">3rd</span>
-                        <h3 class="achievement-card__title">DataVerse, BMSCE</h3>
-                        <p class="achievement-card__desc">24-hour Kaggle ML competition &mdash; Energy Audit Estimation &amp; Analysis.</p>
-                    </a>
+<section class="section" id="work">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Selected work</span>
+      <h2 class="section__title">Projects</h2>
+    </div>
+    <div class="projects__grid">
+      <article class="project-card tilt reveal" data-href="https://github.com/gnanendranaidun/Crescere_test.git">
+        <div class="project-card__img"><img src="../assets/img/Screenshot 2025-02-12 at 22.14.09.png" alt="Crescere"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Deep Learning · Health</span>
+          <h3 class="project-card__title">Crescere</h3>
+          <p class="project-card__desc">Mobile + web ecosystem for child health monitoring. YOLO + MediaPipe pose estimation and PyTorch/Transformers modeling for anthropometric, WHO-based analysis — 96.9% accuracy. Deployed with skids.health.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-1" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-train'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">CNN · Depth-Anything</span>
+          <h3 class="project-card__title">Wagon Analysis &amp; Damage Detection</h3>
+          <p class="project-card__desc">Processes rail-wagon video to classify loaded/unloaded status, compute material volume, and detect damage — auto-generating image reports. Deployed at JK Lakshmi Cement. Grand Prize, MINeD 2025.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-2" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-cctv'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">OpenCV · Flask · ML</span>
+          <h3 class="project-card__title">Camera-Only Surveillance System</h3>
+          <p class="project-card__desc">Modular multi-camera security system with anomaly detection — loitering, crowd &amp; motion alerts via SVM, KNN, blob detection and Kalman filtering. Live dashboards + email/SMS triggers.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-3" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-chat'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">RAG · LangChain</span>
+          <h3 class="project-card__title">Multilingual Loan Advisor</h3>
+          <p class="project-card__desc">Voice chatbot for 9+ Indian languages (Sarvam AI STT/TTS/translation) with LangChain + GPT for contextual loan advice. Top 50 — Great Bengaluru Hackathon.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-4" data-href="https://github.com/gnanendranaidun">
+        <div class="project-card__img project-card__img--ph"><i class='bx bx-car'></i></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Research · CNN · Optical Flow</span>
+          <h3 class="project-card__title">Real-Time Steering Angle Prediction</h3>
+          <p class="project-card__desc">Monocular-camera system using CNN + optical flow for steering-angle prediction, with depth estimation and discrete-math models replacing LiDAR. Research paper in progress.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal" data-href="https://github.com/gnanendranaidun/qubit_rotational_explorer">
+        <div class="project-card__img"><img src="../assets/img/Qubit project.jpeg" alt="Qubit Rotational Explorer"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Quantum Computing · Viz</span>
+          <h3 class="project-card__title">Qubit Rotational Explorer</h3>
+          <p class="project-card__desc">Interactive visualization of qubit state rotations on the Bloch sphere.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-1" data-href="https://github.com/gnanendranaidun/Visible-Spectrophotometer">
+        <div class="project-card__img"><img src="../assets/img/Screenshot 2025-02-12 at 22.22.52.png" alt="Visible Spectrophotometer"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Hardware · Optics · Python</span>
+          <h3 class="project-card__title">Visible Spectrophotometer</h3>
+          <p class="project-card__desc">Prototype using visible-light absorption to identify solutions — built from the hardware up.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-2" data-href="https://github.com/gnanendranaidun/Dynamic-object-recognition">
+        <div class="project-card__img"><img src="../assets/img/object detection.jpeg" alt="Dynamic Object Recognition"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Computer Vision · CNN</span>
+          <h3 class="project-card__title">Dynamic Object Recognition</h3>
+          <p class="project-card__desc">Real-time object detection and classification with automated command output.</p>
+        </div>
+      </article>
+      <article class="project-card tilt reveal reveal--delay-3" data-href="https://github.com/AnjKal/Pothole_DTL">
+        <div class="project-card__img"><img src="../assets/img/logo copy.png" alt="Civic Issue Reporting Portal"></div>
+        <div class="project-card__body">
+          <span class="project-card__tag">Design Thinking · Web</span>
+          <h3 class="project-card__title">Civic Issue Reporting Portal</h3>
+          <p class="project-card__desc">Pothole and civic-issue reporting system from a design-thinking course.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-                    <a href="https://github.com/gnanendranaidun/Crescere_test.git" target="_blank" class="achievement-card">
-                        <span class="achievement-card__stat">&#8599;</span>
-                        <h3 class="achievement-card__title">Crescere &times; Skids.health</h3>
-                        <p class="achievement-card__desc">Built a full child health monitoring ecosystem with an industry partner.</p>
-                    </a>
+<div class="section-divider"></div>
 
-                    <a href="https://leetcode.com/u/gnanuqubit" target="_blank" class="achievement-card">
-                        <span class="achievement-card__stat">1460+</span>
-                        <h3 class="achievement-card__title">LeetCode Rating</h3>
-                        <p class="achievement-card__desc">240+ problems solved. Top 38% globally. Max contest rating 1460+.</p>
-                    </a>
+<section class="section section--alt" id="skills">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Toolkit</span>
+      <h2 class="section__title">Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skills-group reveal">
+        <span class="skills-group__label">Languages</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Python</span>
+          <span class="skills-tag">C</span>
+          <span class="skills-tag">C++</span>
+          <span class="skills-tag">Java</span>
+          <span class="skills-tag">JavaScript</span>
+          <span class="skills-tag">Swift</span>
+          <span class="skills-tag">Kotlin</span>
+          <span class="skills-tag">HTML</span>
+          <span class="skills-tag">CSS</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-1">
+        <span class="skills-group__label">ML / AI</span>
+        <div class="skills-tags">
+          <span class="skills-tag">PyTorch</span>
+          <span class="skills-tag">TensorFlow</span>
+          <span class="skills-tag">OpenCV</span>
+          <span class="skills-tag">YOLOv5</span>
+          <span class="skills-tag">MediaPipe</span>
+          <span class="skills-tag">Transformers</span>
+          <span class="skills-tag">CNN</span>
+          <span class="skills-tag">RAG</span>
+          <span class="skills-tag">LangChain</span>
+          <span class="skills-tag">GPT</span>
+          <span class="skills-tag">Depth-Anything</span>
+          <span class="skills-tag">scikit-learn</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-2">
+        <span class="skills-group__label">Web</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Flask</span>
+          <span class="skills-tag">Streamlit</span>
+          <span class="skills-tag">FastAPI</span>
+          <span class="skills-tag">Socket.IO</span>
+          <span class="skills-tag">Chart.js</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-3">
+        <span class="skills-group__label">Mobile</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Android Studio</span>
+          <span class="skills-tag">Xcode</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-1">
+        <span class="skills-group__label">Cloud &amp; Data</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Firebase</span>
+          <span class="skills-tag">AWS</span>
+          <span class="skills-tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-2">
+        <span class="skills-group__label">Dev Tools</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Git</span>
+          <span class="skills-tag">GitHub</span>
+          <span class="skills-tag">VS Code</span>
+          <span class="skills-tag">ngrok</span>
+          <span class="skills-tag">Jupyter</span>
+          <span class="skills-tag">Google Colab</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-3">
+        <span class="skills-group__label">Foundations</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Data Structures</span>
+          <span class="skills-tag">Algorithms</span>
+          <span class="skills-tag">Problem Solving</span>
+          <span class="skills-tag">Agile Development</span>
+        </div>
+      </div>
+      <div class="skills-group reveal reveal--delay-4">
+        <span class="skills-group__label">Soft Skills</span>
+        <div class="skills-tags">
+          <span class="skills-tag">Teamwork</span>
+          <span class="skills-tag">Leadership</span>
+          <span class="skills-tag">Time Management</span>
+          <span class="skills-tag">Communication</span>
+          <span class="skills-tag">Collaboration</span>
+          <span class="skills-tag">Design Thinking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                </div>
-            </div>
-        </section>
+<div class="section-divider"></div>
 
-        <!-- ABOUT -->
-        <section class="section" id="about">
-            <div class="section__inner">
-                <h2 class="section__title">About</h2>
-                <div class="about__layout">
-                    <div class="about__left">
-                        <img src="assets/img/perfil.png" alt="Gnanendra Naidu" class="about__photo">
-                        <div class="about__chips">
-                            <span class="chip">RVCE, Bengaluru</span>
-                            <span class="chip">B.E. AI &amp; ML</span>
-                            <span class="chip">Quantum ML</span>
-                            <span class="chip">Learning German</span>
-                        </div>
-                    </div>
-                    <div class="about__right">
-                        <h3 class="about__heading">I'm Gnanendra Naidu</h3>
-                        <p>An AI &amp; ML enthusiast from India with a passion for pushing the boundaries of deep learning, large language models, and quantum computing. Currently pursuing a B.E. in Artificial Intelligence &amp; Machine Learning at RV College of Engineering, Bengaluru.</p>
-                        <p>I'm drawn to problems that sit at the edge of what's understood &mdash; whether that's pose estimation, quantum cryptography, or human height estimation from multimodal input. Strong on leadership, active on LeetCode, and always looking for people to build with.</p>
-                        <ul class="about__list">
-                            <li>Skilled in deep learning, pose estimation, and CNN-based models</li>
-                            <li>Fascinated by Quantum ML and Quantum Cryptography</li>
-                            <li>Currently working on human height estimation using multimodal input</li>
-                            <li>Solved <strong>240+ challenges on <a href="https://leetcode.com/u/gnanuqubit" target="_blank">LeetCode</a></strong> &mdash; Global Rank 438,265</li>
-                            <li>Learning German in my free time</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section class="section" id="achievements">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Wins</span>
+      <h2 class="section__title">Achievements</h2>
+    </div>
 
-        <!-- BLOG -->
-        <section class="section section--dark" id="blog">
-            <div class="section__inner">
-                <h2 class="section__title">Blog</h2>
-                <div class="blog__list">
+    <div class="achievements__grid">
+      <a href="https://www.linkedin.com/in/gnanendranaidun" target="_blank"
+         class="achievement-card reveal">
+        <span class="achievement-card__stat">1st</span>
+        <h3 class="achievement-card__title">MINeD 2025 &mdash; Grand Prize</h3>
+        <p class="achievement-card__desc">Led the team to the 48-hr Grand Prize ($300 + &#8377;10,000) at MINeD 2025 (Binghamton University, NY &amp; Nirma University). Built the Deep-Learning/CNN models for damage detection &amp; volume estimation.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
 
-                    <a href="blog2.html" target="_blank" class="blog-card">
-                        <div class="blog-card__img">
-                            <img src="assets/img/YC COVER.jpg" alt="YC Startup School India">
-                        </div>
-                        <div class="blog-card__body">
-                            <span class="blog-card__tag">Startup &middot; India</span>
-                            <h3 class="blog-card__title">YC Startup School India</h3>
-                            <p class="blog-card__desc">Everything from the talks, people, insights, and my takeaways from one of the most formative days of the year.</p>
-                        </div>
-                    </a>
+      <a href="https://www.linkedin.com/in/gnanendranaidun" target="_blank"
+         class="achievement-card reveal reveal--delay-1">
+        <span class="achievement-card__stat">Top 5%</span>
+        <h3 class="achievement-card__title">Data Science for Engineers &mdash; NPTEL</h3>
+        <p class="achievement-card__desc">Finished in the top 5% of the NPTEL course. Also completed AI for Economics (NPTEL).</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
 
-                    <a href="https://www.linkedin.com/pulse/cyber-physical-systems-cps-defense-pioneering-new-era-naidu-n-w13zc/" target="_blank" class="blog-card">
-                        <div class="blog-card__img blog-card__img--placeholder">
-                            <span>CPS</span>
-                        </div>
-                        <div class="blog-card__body">
-                            <span class="blog-card__tag">Systems &middot; Security</span>
-                            <h3 class="blog-card__title">Understanding Cyber-Physical Systems</h3>
-                            <p class="blog-card__desc">A deep dive into CPS in defense &mdash; what they are, how they work, and why they matter for modern infrastructure.</p>
-                        </div>
-                    </a>
+      <a href="https://github.com/gnanendranaidun" target="_blank"
+         class="achievement-card reveal reveal--delay-2">
+        <span class="achievement-card__stat">Top 6</span>
+        <h3 class="achievement-card__title">AI-Verse, BMSCE</h3>
+        <p class="achievement-card__desc">Top 6 &mdash; built an emotional multilingual chatbot using NLP and TTS/ASR for real-time, sentiment-aware responses.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
 
-                </div>
-            </div>
-        </section>
+      <a href="https://github.com/gnanendranaidun" target="_blank"
+         class="achievement-card reveal reveal--delay-3">
+        <span class="achievement-card__stat">3rd</span>
+        <h3 class="achievement-card__title">DataVerse, BMSCE</h3>
+        <p class="achievement-card__desc">Third place in a 24-hour Kaggle ML competition for Energy Audit Estimation &amp; Analysis.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
 
-        <!-- CONTACT -->
-        <section class="section" id="contact">
-            <div class="section__inner contact__inner">
-                <h2 class="section__title">Contact</h2>
-                <p class="contact__desc">Open to collaborations, internships, research conversations, and interesting problems.</p>
-                <div class="contact__links">
-                    <a href="https://github.com/gnanendranaidun" target="_blank" class="contact__link">
-                        <i class='bx bxl-github'></i> GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/gnanendranaidun" target="_blank" class="contact__link">
-                        <i class='bx bxl-linkedin'></i> LinkedIn
-                    </a>
-                    <a href="https://discord.gg/h7TzC7bc" target="_blank" class="contact__link">
-                        <i class='bx bxl-discord'></i> Discord
-                    </a>
-                    <a href="https://drive.google.com/file/d/1D-Nm0PQ1lzSSceQvWJZe3O2MnPDVxQrO/view?usp=sharing" target="_blank" class="contact__link">
-                        <i class='bx bx-file'></i> Resume
-                    </a>
-                </div>
-            </div>
-        </section>
+      <a href="https://leetcode.com/u/gnanuqubit" target="_blank"
+         class="achievement-card reveal reveal--delay-4">
+        <span class="achievement-card__stat">500+</span>
+        <h3 class="achievement-card__title">Competitive Programming</h3>
+        <p class="achievement-card__desc">Solved 500+ problems across LeetCode, GeeksforGeeks, Codeforces and HackerRank.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
 
-    </main>
+      <a href="https://leetcode.com/u/gnanuqubit" target="_blank"
+         class="achievement-card reveal reveal--delay-4">
+        <span class="achievement-card__stat">1460+</span>
+        <h3 class="achievement-card__title">LeetCode Rating</h3>
+        <p class="achievement-card__desc">Maximum contest rating of 1460+ &mdash; top 38% globally.</p>
+        <span class="ach-hint">View <i class='bx bx-up-arrow-alt'></i></span>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <footer class="footer">
-        <p>Gnanendra Naidu N &mdash; <span id="footer-year"></span> &mdash; All rights reserved</p>
-    </footer>
+<div class="section-divider"></div>
 
-    <script src="assets/js/main.js"></script>
+<section class="section section--alt" id="education">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Academics</span>
+      <h2 class="section__title">Education</h2>
+    </div>
+
+    <div class="edu-grid">
+      <article class="edu-card reveal reveal--delay-1">
+        <span class="edu-card__metric">8.96</span>
+        <span class="edu-card__metric-label">CGPA</span>
+        <h3 class="edu-card__inst">R V College of Engineering</h3>
+        <span class="edu-card__meta">Bangalore, India &middot; Sep 2023 &mdash; Sep 2027</span>
+        <p class="edu-card__degree">B.E. in Artificial Intelligence &amp; Machine Learning Engineering</p>
+      </article>
+
+      <article class="edu-card reveal reveal--delay-2">
+        <span class="edu-card__metric">90.1%</span>
+        <span class="edu-card__metric-label">2nd PUC</span>
+        <h3 class="edu-card__inst">Vision PU College</h3>
+        <span class="edu-card__meta">Bangalore, India &middot; Aug 2021 &mdash; Mar 2023</span>
+        <p class="edu-card__degree">Pre-University (PCM)</p>
+        <p class="edu-card__extra">KCET &mdash; 1424 State Rank &nbsp;&middot;&nbsp; JEE Mains &mdash; 96.1 percentile</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="blog">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Writing</span>
+      <h2 class="section__title">Blog</h2>
+    </div>
+    <div class="blog__list">
+
+      <a href="../blog2.html" target="_blank" class="blog-card reveal">
+        <div class="blog-card__img">
+          <img src="../assets/img/YC COVER.jpg" alt="YC Startup School India">
+        </div>
+        <div class="blog-card__body">
+          <span class="blog-card__tag">Startup &middot; India</span>
+          <h3 class="blog-card__title">YC Startup School India</h3>
+          <p class="blog-card__desc">Everything from the talks, people, insights, and my takeaways from one of the most formative days of the year.</p>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/pulse/cyber-physical-systems-cps-defense-pioneering-new-era-naidu-n-w13zc/"
+         target="_blank" class="blog-card reveal reveal--delay-1">
+        <div class="blog-card__img blog-card__img--placeholder">
+          <span>CPS</span>
+        </div>
+        <div class="blog-card__body">
+          <span class="blog-card__tag">Systems &middot; Security</span>
+          <h3 class="blog-card__title">Understanding Cyber-Physical Systems</h3>
+          <p class="blog-card__desc">A deep dive into CPS in defense &mdash; what they are, how they work, and why they matter for modern infrastructure.</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section section--alt" id="extracurricular">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__eyebrow">// Beyond code</span>
+      <h2 class="section__title">Community</h2>
+    </div>
+    <div class="extra-grid">
+
+      <div class="extra-card reveal">
+        <div class="extra-card__icon"><i class='bx bxl-google'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Google Developer Groups, RVCE</h3>
+          <span class="extra-card__role">Member &amp; Active Collaborator</span>
+          <span class="extra-card__date">Jan 2023 &mdash; Present</span>
+        </div>
+      </div>
+
+      <div class="extra-card reveal reveal--delay-1">
+        <div class="extra-card__icon"><i class='bx bx-code-alt'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Coding Club, RVCE</h3>
+          <span class="extra-card__role">Member</span>
+          <span class="extra-card__date">Feb 2023 &mdash; Present</span>
+        </div>
+      </div>
+
+      <div class="extra-card reveal reveal--delay-2">
+        <div class="extra-card__icon"><i class='bx bx-calendar-event'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Mimamsa 2025</h3>
+          <span class="extra-card__role">Campus Coordinator</span>
+          <span class="extra-card__date">2025</span>
+        </div>
+      </div>
+
+      <div class="extra-card reveal reveal--delay-3">
+        <div class="extra-card__icon"><i class='bx bx-group'></i></div>
+        <div class="extra-card__body">
+          <h3 class="extra-card__org">Rotaract Club, RVCE</h3>
+          <span class="extra-card__role">Member</span>
+          <span class="extra-card__date">Jan 2023 &mdash; Present</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="contact">
+  <div class="section__inner contact__inner">
+    <h2 class="contact__heading reveal">
+      Let's build<br>
+      <span>something.</span>
+    </h2>
+    <p class="contact__desc reveal reveal--delay-1">
+      Open to collaborations, internships, research conversations, and interesting problems. Based in Bengaluru &mdash; reachable worldwide.
+    </p>
+    <div class="contact__links reveal reveal--delay-2">
+      <a href="mailto:gnanendranaidun101@gmail.com" class="contact__link"><i class='bx bx-envelope'></i> Email</a>
+      <a href="tel:+918050268630" class="contact__link"><i class='bx bx-phone'></i> +91 80502 68630</a>
+      <a href="https://github.com/gnanendranaidun"      target="_blank" class="contact__link"><i class='bx bxl-github'></i> GitHub</a>
+      <a href="https://linkedin.com/in/gnanendranaidun" target="_blank" class="contact__link"><i class='bx bxl-linkedin'></i> LinkedIn</a>
+      <a href="https://discord.gg/h7TzC7bc"             target="_blank" class="contact__link"><i class='bx bxl-discord'></i> Discord</a>
+      <a href="https://drive.google.com/file/d/1D-Nm0PQ1lzSSceQvWJZe3O2MnPDVxQrO/view?usp=sharing"
+         target="_blank" class="contact__link"><i class='bx bx-file'></i> Resume</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p>Gnanendra Naidu N &mdash; <b id="footer-year"></b> &mdash; All rights reserved</p>
+</footer>
+
+<script>
+/* ----- Nav: frosted on scroll ----- */
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+/* ----- Mobile menu ----- */
+const toggle = document.getElementById('nav-toggle');
+const menu   = document.getElementById('nav-menu');
+toggle?.addEventListener('click', () => menu.classList.toggle('show'));
+document.querySelectorAll('.nav__link').forEach(l =>
+  l.addEventListener('click', () => menu.classList.remove('show'))
+);
+
+/* ----- Active nav on scroll ----- */
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  const y = window.pageYOffset;
+  secs.forEach(s => {
+    const link = document.querySelector(`.nav__link[href="#${s.id}"]`);
+    if (!link) return;
+    link.classList.toggle('active', y >= s.offsetTop - 100 && y < s.offsetTop - 100 + s.offsetHeight);
+  });
+}, { passive: true });
+
+/* ----- Hero mouse-follow glow ----- */
+const hero     = document.querySelector('.hero');
+const heroGlow = document.getElementById('hero-glow');
+if (hero && heroGlow) {
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    hero.style.setProperty('--glow-x', `${x}px`);
+    hero.style.setProperty('--glow-y', `${y}px`);
+  });
+}
+
+/* ----- Scroll reveal ----- */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ----- Counter animation ----- */
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+function animateCount(el, target, duration = 1800) {
+  const start = performance.now();
+  const tick  = now => {
+    const t = Math.min((now - start) / duration, 1);
+    const suffix = el.dataset.suffix || '';
+    el.textContent = Math.floor(easeOutCubic(t) * target) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = target + suffix;
+  };
+  requestAnimationFrame(tick);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target, parseInt(e.target.dataset.target));
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat__num[data-target]').forEach(el => counterObs.observe(el));
+
+/* ----- 3D card tilt + click ----- */
+document.querySelectorAll('.tilt').forEach(card => {
+  let raf;
+  card.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left)  / r.width  - 0.5) * 2;
+      const y = ((e.clientY - r.top)   / r.height - 0.5) * 2;
+      card.style.transform =
+        `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateZ(10px)`;
+      card.style.transition = 'transform 0.05s linear, border-color 0.28s, box-shadow 0.28s';
+    });
+  });
+  card.addEventListener('mouseleave', () => {
+    cancelAnimationFrame(raf);
+    card.style.transform = '';
+    card.style.transition = 'transform 0.5s ease, border-color 0.28s, box-shadow 0.28s';
+  });
+  card.addEventListener('click', () => {
+    if (card.dataset.href) window.open(card.dataset.href, '_blank', 'noopener,noreferrer');
+  });
+});
+
+/* ----- Footer year ----- */
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
