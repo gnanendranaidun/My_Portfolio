@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
 
 <style>
@@ -30,9 +30,9 @@
   --border:    rgba(0, 229, 255, 0.10);
   --border-hi: rgba(0, 229, 255, 0.40);
 
-  --font-display: 'Syne', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-  --font-mono:    'Fira Code', monospace;
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --nav-h:  4.5rem;
   --max-w:  1120px;
@@ -86,7 +86,7 @@ ul   { list-style: none; }
 .nav__logo {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--white);
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -219,7 +219,7 @@ ul   { list-style: none; }
 
 .hero__name {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.92;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -524,7 +524,7 @@ ul   { list-style: none; }
   display: block;
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--electric);
   line-height: 1;
@@ -560,7 +560,7 @@ ul   { list-style: none; }
 .section__title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--white);
   text-transform: uppercase;
@@ -705,7 +705,7 @@ ul   { list-style: none; }
   display: block;
   font-family: var(--font-display);
   font-size: 3.5rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--electric);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -786,7 +786,7 @@ ul   { list-style: none; }
 .about__heading {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--white);
   margin-bottom: 1rem;
@@ -869,7 +869,7 @@ ul   { list-style: none; }
 .blog-card__img--placeholder span {
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--electric);
   opacity: 0.4;
   letter-spacing: 0.1em;
@@ -910,7 +910,7 @@ ul   { list-style: none; }
 .contact__heading {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--white);
   text-transform: uppercase;
@@ -1088,7 +1088,7 @@ ul   { list-style: none; }
 .exp-card__role {
   font-family: var(--font-display);
   font-size: 1.1rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--white);
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -1204,7 +1204,7 @@ ul   { list-style: none; }
   display: block;
   font-family: var(--font-display);
   font-size: 3.5rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--electric);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -1222,7 +1222,7 @@ ul   { list-style: none; }
 }
 .edu-card__inst {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.15rem;
   color: var(--white);
   letter-spacing: 0.01em;
@@ -1464,15 +1464,10 @@ ul   { list-style: none; }
   <div class="hero__content">
     <span class="hero__eyebrow">AI &nbsp;&middot;&nbsp; ML &nbsp;&middot;&nbsp; Quantum Computing</span>
     <div class="hero__namerow">
-      <!-- Image placeholder — replace the .hero__portrait-ph block with
-           <img class="hero__portrait-img" src="..." alt="Gnanendra Naidu"> -->
       <div class="hero__portrait">
         <div class="hero__portrait-inner">
+          <img class="hero__portrait-img" src="../assets/img/perfil.png" alt="Gnanendra Naidu">
           <div class="hero__portrait-scan"></div>
-          <div class="hero__portrait-ph">
-            <i class='bx bx-image-add'></i>
-            <span>Your<br>photo</span>
-          </div>
         </div>
       </div>
       <h1 class="hero__name">
