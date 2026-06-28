@@ -197,7 +197,11 @@ ul   { list-style: none; }
   z-index: 1;
   text-align: center;
   padding: calc(var(--nav-h) + 3rem) 2rem 5rem;
-  max-width: 860px;
+  /* .hero is a flex container, so this is a flex item — without
+     width:100% it shrink-wraps to its content and gets centered by
+     justify-content, so the name could never reach the site edge. */
+  width: 100%;
+  max-width: var(--max-w);
   margin: 0 auto;
 }
 
@@ -222,17 +226,18 @@ ul   { list-style: none; }
   margin-bottom: 1.75rem;
   opacity: 0;
   animation: fadeUp 0.9s ease 0.4s forwards;
+  /* Override the inherited text-align:center from .hero__content.
+     Both spans are full-width blocks, so right-aligning the text
+     pins each line's right edge to the content edge (= nav edge). */
   text-align: right;
 }
 
-/* First name — Syne is wide (~1.1em/char); at 4.5rem × 9 chars = ~713px, safe in any container */
 .hero__name-first {
   display: block;
   font-size: clamp(1.8rem, 4.5vw, 4.5rem);
   text-shadow: 0 0 80px rgba(0, 229, 255, 0.12);
 }
 
-/* Last name — shorter word earns the dramatic scale */
 .hero__name-last {
   display: block;
   font-size: clamp(3rem, 9vw, 8rem);
